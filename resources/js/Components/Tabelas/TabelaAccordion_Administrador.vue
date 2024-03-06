@@ -42,9 +42,9 @@
                         </thead>
                         <tbody data-accordion="collapse" v-for="(obj, index) in  $page.props.usuarios ">
                             <tr 
-                                v-bind:id="'accordion-collapse-heading-Administrador' + index"  
+                                v-bind:id="'accordion-collapse-heading-Administrador' + index"
                                 class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100" 
-                                v-bind:data-accordion-target="'#accordion-collapse-body-Administrador' + index" 
+                                v-bind:data-accordion-target="'#accordion-collapse-body-Administrador' + index"
                                 aria-expanded="false" 
                                 v-bind:aria-controls="'accordion-collapse-body-Administrador' + index"
                             >
@@ -52,8 +52,8 @@
                                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ obj.name }}</td>
                                 <td>{{ obj.user.email }}</td>
                                 <td>
-                                    <Botao_editar :href="route('administrador.edit' , {id: 1})"></Botao_editar>
-                                    <Botao_deletar :href="route('administrador.create')"></Botao_deletar>
+                                    <Botao_editar :href="route('administrador.edit' , {id: obj.id})"></Botao_editar>
+                                    <Botao_deletar :deleteId="obj.id"></Botao_deletar>
                                 </td>
                             </tr>
                             <tr class="hidden bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"  

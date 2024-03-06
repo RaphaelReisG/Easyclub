@@ -1,6 +1,6 @@
 <script setup>
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-    import TabelaAccordion from '@/Components/TabelaAccordion.vue';
+    import TabelaAccordion_Administrador from '@/Components/Tabelas/TabelaAccordion_Administrador.vue';
     import Botao_novo from '@/Components/Botoes/Botao_novo.vue';
     import { Head } from '@inertiajs/vue3';
 </script>
@@ -23,7 +23,7 @@
                     <div v-if="$page.props.auth.user.userable_type === 'App\\Models\\Administrador'" class="p-6 text-gray-900">
                         Conteudo de administrador: 
 
-                        <TabelaAccordion/>
+                        <TabelaAccordion_Administrador/>
                     </div>
                     
                 </div>

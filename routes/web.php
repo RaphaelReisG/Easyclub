@@ -48,6 +48,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/administrador', [AdministradorController::class, 'index'])->name('administrador.index');
     Route::get('/administrador/Create', [AdministradorController::class, 'create'])->name('administrador.create');
     Route::get('/administrador/Edit/{id}', [AdministradorController::class, 'edit'])->name('administrador.edit');
+    Route::post('/administrador', [AdministradorController::class, 'store'])->name('administrador.store');
+    Route::put('/administrador/{id}', [AdministradorController::class, 'update'])->name('administrador.update');
+    Route::delete('/administrador/{id}', [AdministradorController::class, 'destroy'])->name('administrador.destroy');
 });
 
 require __DIR__.'/auth.php';
