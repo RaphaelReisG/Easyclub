@@ -41,7 +41,7 @@ const showingNavigationDropdown = ref(false);
                                         <span class="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
                                             >
                                                 Ambiente
                                             </button>
@@ -54,7 +54,25 @@ const showingNavigationDropdown = ref(false);
                                         <DropdownLink :href="route('empresa.index')"> Empresa </DropdownLink>
                                     </template>
                                 </Dropdown>
+                                <Dropdown width="48">
+                                    <template #trigger>
+                                        <span class="inline-flex rounded-md">
+                                            <button
+                                                type="button"
+                                                class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
+                                            >
+                                                Comercial
+                                            </button>
+                                        </span>
+                                    </template>
+
+                                    <template #content>
+                                        <DropdownLink :href="route('fornecedor.index')"> Fornecedor </DropdownLink>
+                                    </template>
+                                </Dropdown>
+                                
                             </div>
+                            
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ms-6">

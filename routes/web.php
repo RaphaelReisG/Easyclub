@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdministradorController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\FornecedorController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -70,6 +71,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/empresa', [EmpresaController::class, 'store'])->name('empresa.store');
     Route::put('/empresa/{id}', [EmpresaController::class, 'update'])->name('empresa.update');
     Route::delete('/empresa/{id}', [EmpresaController::class, 'destroy'])->name('empresa.destroy');
+
+    //Fornecedor
+    Route::get('/fornecedor', [FornecedorController::class, 'index'])->name('fornecedor.index');
+    Route::get('/fornecedor/Create', [FornecedorController::class, 'create'])->name('fornecedor.create');
+    Route::get('/fornecedor/Edit/{id}', [FornecedorController::class, 'edit'])->name('fornecedor.edit');
+    Route::post('/fornecedor', [FornecedorController::class, 'store'])->name('fornecedor.store');
+    Route::put('/fornecedor/{id}', [FornecedorController::class, 'update'])->name('fornecedor.update');
+    Route::delete('/fornecedor/{id}', [FornecedorController::class, 'destroy'])->name('fornecedor.destroy');
 });
 
 require __DIR__.'/auth.php';
