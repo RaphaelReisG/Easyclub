@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdministradorController;
+use App\Http\Controllers\EmpresaController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -45,12 +46,21 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    //Administrador
     Route::get('/administrador', [AdministradorController::class, 'index'])->name('administrador.index');
     Route::get('/administrador/Create', [AdministradorController::class, 'create'])->name('administrador.create');
     Route::get('/administrador/Edit/{id}', [AdministradorController::class, 'edit'])->name('administrador.edit');
     Route::post('/administrador', [AdministradorController::class, 'store'])->name('administrador.store');
     Route::put('/administrador/{id}', [AdministradorController::class, 'update'])->name('administrador.update');
     Route::delete('/administrador/{id}', [AdministradorController::class, 'destroy'])->name('administrador.destroy');
+
+    //Empresa
+    Route::get('/empresa', [EmpresaController::class, 'index'])->name('empresa.index');
+    Route::get('/empresa/Create', [EmpresaController::class, 'create'])->name('empresa.create');
+    Route::get('/empresa/Edit/{id}', [EmpresaController::class, 'edit'])->name('empresa.edit');
+    Route::post('/empresa', [EmpresaController::class, 'store'])->name('empresa.store');
+    Route::put('/empresa/{id}', [EmpresaController::class, 'update'])->name('empresa.update');
+    Route::delete('/empresa/{id}', [EmpresaController::class, 'destroy'])->name('empresa.destroy');
 });
 
 require __DIR__.'/auth.php';

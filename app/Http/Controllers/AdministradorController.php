@@ -109,7 +109,7 @@ class AdministradorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request,Administrador $id)
+    public function destroy(Request $request, Administrador $id)
     {
         error_log("Destroy");
         error_log($id);

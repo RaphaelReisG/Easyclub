@@ -1,18 +1,18 @@
 <script setup>
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-    import TabelaAccordion_Administrador from '@/Components/Tabelas/TabelaAccordion_Administrador.vue';
+    import TabelaAccordion_Empresa from '@/Components/Tabelas/TabelaAccordion_Empresa.vue';
     import Botao_novo from '@/Components/Botoes/Botao_novo.vue';
     import { Head } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <Head title="Administradores" />
+    <Head title="Empresa - Index" />
 
     <AuthenticatedLayout>
         <template #header>
             <div>
-                <h2 class="inline-block font-semibold text-xl text-gray-800 leading-tight">Administradores</h2>
-                <Botao_novo :href="route('administrador.create')"></Botao_novo>
+                <h2 class="inline-block font-semibold text-xl text-gray-800 leading-tight">Empresas</h2>
+                <Botao_novo :href="route('empresa.create')"></Botao_novo>
             </div>
         </template>
 
@@ -21,9 +21,9 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     
                     <div v-if="$page.props.auth.user.userable_type === 'App\\Models\\Administrador'" class="p-6 text-gray-900">
-                        Conteudo de administrador: 
+                        Empresas cadastradas no sistema: 
 
-                        <TabelaAccordion_Administrador/>
+                        <TabelaAccordion_Empresa/>
                     </div>
                     
                 </div>

@@ -16,8 +16,6 @@
 
 
 <template>
-
-
     <!-- component -->
     <div class="flex flex-col">
         <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
@@ -33,14 +31,14 @@
                                     Nome
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                    Email
+                                    CNPJ
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                     Opções
                                 </th>
                             </tr>
                         </thead>
-                        <tbody data-accordion="collapse" v-for="(obj, index) in  $page.props.usuarios ">
+                        <tbody data-accordion="collapse" v-for="(obj, index) in  $page.props.empresas ">
                             <tr 
                                 v-bind:id="'accordion-collapse-heading-Administrador' + index"
                                 class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100" 
@@ -50,10 +48,10 @@
                             >
                                 <th class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" scope="row">{{ index+1 }}</th>
                                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ obj.name }}</td>
-                                <td>{{ obj.user.email }}</td>
+                                <td>{{ obj.cnpj }}</td>
                                 <td>
-                                    <Botao_editar :href="route('administrador.edit' , {id: obj.id})"></Botao_editar>
-                                    <Botao_deletar destino="administrador.destroy" :deleteId="obj.id"></Botao_deletar>
+                                    <Botao_editar :href="route('empresa.edit' , {id: obj.id})"></Botao_editar>
+                                    <Botao_deletar destino="empresa.destroy" :deleteId="obj.id"></Botao_deletar>
                                 </td>
                             </tr>
                             <tr class="hidden bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"  

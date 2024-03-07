@@ -3,7 +3,7 @@
     import { ref } from 'vue';
 
 
-    const { deleteId } = defineProps(['deleteId']);
+    const { deleteId, destino } = defineProps(['deleteId', 'destino']);
 
     const formato = ref(true);
 
@@ -18,7 +18,7 @@
 
     const submit = () => {
         //alert("bla"+bla)
-        form.delete(route('administrador.destroy', {id: deleteId}));
+        form.delete(route(destino, {id: deleteId}));
     };
 
 </script>

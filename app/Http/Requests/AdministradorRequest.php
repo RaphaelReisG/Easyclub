@@ -31,6 +31,7 @@ class AdministradorRequest extends FormRequest
     
         // Adiciona as regras de senha apenas se for um formulário de criação
         if ($this->isMethod('post')) {
+            $rules['email'] = 'required|email|max:45|unique:users,email';
             $rules['password'] = 'required|max:45|min:8|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/';
             $rules['password_confirmation'] = 'required|same:password';
         }
@@ -48,6 +49,7 @@ class AdministradorRequest extends FormRequest
             'email.required' => "O e-mail é obrigatório",
             'email.email' => 'O e-mail deve ser um endereço de e-mail válido',
             'email.max' => "O e-mail não pode ser maior que 45 caracteres",
+            'email.unique' => 'Este e-mail já está em uso',
 
             'password.required' => "A senha é obrigatório",
             'password.max' => "O nome não pode ser maior que 45 caracteres",
