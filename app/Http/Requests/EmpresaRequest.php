@@ -24,12 +24,12 @@ class EmpresaRequest extends FormRequest
         
         $rules = [
             'name' => 'required|max:45',
-            'cnpj' => 'required|min:14|max:14|cnpj_validacao'
+            'cnpj' => 'required|min:14|max:14'
         ];
     
         // Adiciona as regras de senha apenas se for um formulário de criação
         if ($this->isMethod('post')) {
-            $rules['cnpj'] = 'required|min:14|max:14|unique:empresas,cnpj|cnpj_validacao';
+            $rules['cnpj'] = 'required|min:14|max:14|unique:empresas,cnpj';
         }
     
         return $rules;
@@ -78,7 +78,7 @@ class EmpresaRequest extends FormRequest
             'cnpj.min' => 'O CNPJ deve ter 14 caracteres',
             'cnpj.max' => "O CNPJ deve ter 14 caracteres",
             'cnpj.unique' => 'Este CNPJ já está em uso',
-            'cnpj.cnpj_validacao' => 'Este CNPJ não é valido',
+           // 'cnpj.cnpj_validacao' => 'Este CNPJ não é valido',
         ];
     }
 }

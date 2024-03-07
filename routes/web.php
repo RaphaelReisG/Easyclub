@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdministradorController;
+use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EmpresaController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -53,6 +54,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/administrador', [AdministradorController::class, 'store'])->name('administrador.store');
     Route::put('/administrador/{id}', [AdministradorController::class, 'update'])->name('administrador.update');
     Route::delete('/administrador/{id}', [AdministradorController::class, 'destroy'])->name('administrador.destroy');
+
+     //Cliente
+     Route::get('/cliente', [ClienteController::class, 'index'])->name('cliente.index');
+     Route::get('/cliente/Create', [ClienteController::class, 'create'])->name('cliente.create');
+     Route::get('/cliente/Edit/{id}', [ClienteController::class, 'edit'])->name('cliente.edit');
+     Route::post('/cliente', [ClienteController::class, 'store'])->name('cliente.store');
+     Route::put('/cliente/{id}', [ClienteController::class, 'update'])->name('cliente.update');
+     Route::delete('/cliente/{id}', [ClienteController::class, 'destroy'])->name('cliente.destroy');
 
     //Empresa
     Route::get('/empresa', [EmpresaController::class, 'index'])->name('empresa.index');

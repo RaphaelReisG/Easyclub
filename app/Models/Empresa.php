@@ -13,4 +13,8 @@ class Empresa extends Model
         'name',
         'cnpj'
     ];
+
+    public function clientes(){
+        return $this->hasMany(Cliente::class);
+    }
 }

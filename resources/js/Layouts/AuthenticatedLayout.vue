@@ -50,6 +50,7 @@ const showingNavigationDropdown = ref(false);
 
                                     <template #content>
                                         <DropdownLink :href="route('administrador.index')"> Administrador </DropdownLink>
+                                        <DropdownLink :href="route('cliente.index')"> Cliente </DropdownLink>
                                         <DropdownLink :href="route('empresa.index')"> Empresa </DropdownLink>
                                     </template>
                                 </Dropdown>

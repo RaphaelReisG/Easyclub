@@ -9,4 +9,13 @@ use App\Models\Usuario_sistema;
 class Cliente extends Usuario_sistema
 {
     use HasFactory;
+
+    protected $fillable = [
+        'empresa_id',
+        'name'
+    ];
+
+    public function empresa(){
+        return $this->belongsTo(Empresa::class);
+    }
 }
