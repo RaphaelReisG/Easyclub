@@ -5,6 +5,7 @@ use App\Http\Controllers\AdministradorController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\FornecedorController;
+use App\Http\Controllers\TipoProdutoController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -79,6 +80,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/fornecedor', [FornecedorController::class, 'store'])->name('fornecedor.store');
     Route::put('/fornecedor/{id}', [FornecedorController::class, 'update'])->name('fornecedor.update');
     Route::delete('/fornecedor/{id}', [FornecedorController::class, 'destroy'])->name('fornecedor.destroy');
+
+    //Tipo_produto
+    Route::get('/tipo_produto', [TipoProdutoController::class, 'index'])->name('tipo_produto.index');
+    Route::get('/tipo_produto/Create', [TipoProdutoController::class, 'create'])->name('tipo_produto.create');
+    Route::get('/tipo_produto/Edit/{id}', [TipoProdutoController::class, 'edit'])->name('tipo_produto.edit');
+    Route::post('/tipo_produto', [TipoProdutoController::class, 'store'])->name('tipo_produto.store');
+    Route::put('/tipo_produto/{id}', [TipoProdutoController::class, 'update'])->name('tipo_produto.update');
+    Route::delete('/tipo_produto/{id}', [TipoProdutoController::class, 'destroy'])->name('tipo_produto.destroy');
 });
 
 require __DIR__.'/auth.php';
