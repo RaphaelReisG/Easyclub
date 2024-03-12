@@ -3,6 +3,7 @@
 
     import formDefault from '@/Components/forms/formDefault.vue';
     import inputNew from '@/Components/forms/inputs/inputNew.vue';
+    import textAreaNew from '@/Components/forms/inputs/textAreaNew.vue';
     import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
     import InputError from '@/Components/InputError.vue';
 
@@ -44,7 +45,7 @@
                                 <inputNew rotulo="Nome" placeholder="Nome Completo" name="name" type="text" v-model="form.name" required></inputNew>
                                 <InputError class="mt-2" :message="form.errors.name" />
                                 <br><br>
-                                <inputNew rotulo="Descrição" placeholder="Descrição" name="description" type="text" v-model="form.description" required></inputNew>
+                                <textAreaNew rotulo="Descrição" placeholder="Descrição" name="description" type="text" v-model="form.description" required></textAreaNew>
                                 <InputError class="mt-2" :message="form.errors.description" />
                                 <br><br>
                             </template>

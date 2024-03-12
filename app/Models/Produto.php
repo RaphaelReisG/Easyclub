@@ -13,7 +13,16 @@ class Produto extends Model
         'name',
         'description',
         'cost_price',
-        'sale_price',
-        'tipo_produto_id'
+        'sale_price', 
+        'tipo_produto_id',
+        'fornecedor_id'
     ];
+
+    public function tipo_produto(){
+        return $this->belongsTo(Tipo_Produto::class);
+    }
+
+    public function fornecedor(){
+        return $this->belongsTo(Fornecedor::class);
+    }
 }

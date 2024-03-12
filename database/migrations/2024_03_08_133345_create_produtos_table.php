@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('produtos', function (Blueprint $table) {
             $table->id();
+
+            $table->string('name');
+            $table->string('description');
+            $table->decimal('cost_price', 6, 2);
+            $table->decimal('sale_price', 6, 2);
+            $table->foreignId('tipo_produto_id')->constrained('tipo__produtos');
+            $table->foreignId('fornecedor_id')->constrained('fornecedors');
+
+
             $table->timestamps();
         });
     }

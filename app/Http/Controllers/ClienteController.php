@@ -54,8 +54,8 @@ class ClienteController extends Controller
     public function store(ClienteRequest $request)
     {
 
-        error_log("Store");
-        error_log($request->name);
+        //error_log("Store");
+        //error_log($request->name);
         $cliente = Empresa::findOrfail($request->empresa_id)->clientes()->create($request->all());
 
         //$cliente = Cliente::create($request->only('name'));

@@ -49,7 +49,7 @@
                                 <inputNew rotulo="E-mail" placeholder="E-mail" name="email" type="email" v-model="form.email" required></inputNew>
                                 <InputError class="mt-2" :message="form.errors.email" />
                                 <br><br>
-                                <SelectObject rotulo="Empresa" placeholder="Selecione a empresa" name="empresa_id" v-model="form.empresa_id"></SelectObject>
+                                <SelectObject rotulo="Empresa" lista="empresas" placeholder="Selecione a empresa" name="empresa_id" v-model="form.empresa_id"></SelectObject>
                                 <InputError class="mt-2" :message="form.errors.empresa_id" />
                                 <br>
                             </template>

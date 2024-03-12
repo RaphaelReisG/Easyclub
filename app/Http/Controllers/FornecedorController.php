@@ -102,6 +102,7 @@ class FornecedorController extends Controller
      */
     public function destroy(Request $request, Fornecedor $id)
     {
+        
         $id->delete();
 
         $fornecedores = Fornecedor::all();

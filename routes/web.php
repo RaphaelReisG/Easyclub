@@ -6,6 +6,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\FornecedorController;
 use App\Http\Controllers\TipoProdutoController;
+use App\Http\Controllers\ProdutoController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -80,6 +81,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/fornecedor', [FornecedorController::class, 'store'])->name('fornecedor.store');
     Route::put('/fornecedor/{id}', [FornecedorController::class, 'update'])->name('fornecedor.update');
     Route::delete('/fornecedor/{id}', [FornecedorController::class, 'destroy'])->name('fornecedor.destroy');
+
+     //Tipo_produto
+     Route::get('/produto', [ProdutoController::class, 'index'])->name('produto.index');
+     Route::get('/produto/Create', [ProdutoController::class, 'create'])->name('produto.create');
+     Route::get('/produto/Edit/{id}', [ProdutoController::class, 'edit'])->name('produto.edit');
+     Route::post('/produto', [ProdutoController::class, 'store'])->name('produto.store');
+     Route::put('/produto/{id}', [ProdutoController::class, 'update'])->name('produto.update');
+     Route::delete('/produto/{id}', [ProdutoController::class, 'destroy'])->name('produto.destroy');
 
     //Tipo_produto
     Route::get('/tipo_produto', [TipoProdutoController::class, 'index'])->name('tipo_produto.index');
