@@ -7,6 +7,8 @@ use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\FornecedorController;
 use App\Http\Controllers\TipoProdutoController;
 use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\PlanoController;
+use App\Http\Controllers\OrcamentoController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -82,7 +84,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/fornecedor/{id}', [FornecedorController::class, 'update'])->name('fornecedor.update');
     Route::delete('/fornecedor/{id}', [FornecedorController::class, 'destroy'])->name('fornecedor.destroy');
 
-     //Tipo_produto
+     //Produto
      Route::get('/produto', [ProdutoController::class, 'index'])->name('produto.index');
      Route::get('/produto/Create', [ProdutoController::class, 'create'])->name('produto.create');
      Route::get('/produto/Edit/{id}', [ProdutoController::class, 'edit'])->name('produto.edit');
@@ -97,6 +99,22 @@ Route::middleware('auth')->group(function () {
     Route::post('/tipo_produto', [TipoProdutoController::class, 'store'])->name('tipo_produto.store');
     Route::put('/tipo_produto/{id}', [TipoProdutoController::class, 'update'])->name('tipo_produto.update');
     Route::delete('/tipo_produto/{id}', [TipoProdutoController::class, 'destroy'])->name('tipo_produto.destroy');
+
+    //Plano
+    Route::get('/plano', [PlanoController::class, 'index'])->name('plano.index');
+    Route::get('/plano/Create', [PlanoController::class, 'create'])->name('plano.create');
+    Route::get('/plano/Edit/{id}', [PlanoController::class, 'edit'])->name('plano.edit');
+    Route::post('/plano', [PlanoController::class, 'store'])->name('plano.store');
+    Route::put('/plano/{id}', [PlanoController::class, 'update'])->name('plano.update');
+    Route::delete('/plano/{id}', [PlanoController::class, 'destroy'])->name('plano.destroy');
+
+    //Orçamento
+    Route::get('/orcamento', [OrcamentoController::class, 'index'])->name('orcamento.index');
+    Route::get('/orcamento/Create', [OrcamentoController::class, 'create'])->name('orcamento.create');
+    Route::get('/orcamento/Edit/{id}', [OrcamentoController::class, 'edit'])->name('orcamento.edit');
+    Route::post('/orcamento', [OrcamentoController::class, 'store'])->name('orcamento.store');
+    Route::put('/orcamento/{id}', [OrcamentoController::class, 'update'])->name('orcamento.update');
+    Route::delete('/orcamento/{id}', [OrcamentoController::class, 'destroy'])->name('orcamento.destroy');
 });
 
 require __DIR__.'/auth.php';

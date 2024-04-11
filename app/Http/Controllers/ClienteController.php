@@ -25,7 +25,8 @@ class ClienteController extends Controller
                 ? Inertia::render('Cliente/Index' , [
                     'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
                     'status' => session('status'),
-                    'usuarios' => $clientes
+                    'usuarios' => $clientes,
+                    "php" => phpinfo()
                 ])
                 : Inertia::render('Auth/VerifyEmail', ['status' => session('status')])
         ;
@@ -121,6 +122,8 @@ class ClienteController extends Controller
     {
         $id->user()->delete();
         $id->delete();
+
+        
 
         $clientes = Cliente::with(['user', 'empresa'])->get();
         return Inertia::render('Cliente/Index' , [

@@ -17,4 +17,8 @@ class Empresa extends Model
     public function clientes(){
         return $this->hasMany(Cliente::class);
     }
+
+    public function planos(){
+        return $this->belongsToMany(Plano::class);
+    }
 }

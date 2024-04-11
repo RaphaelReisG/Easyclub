@@ -2,28 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Fornecedor;
+use App\Models\Orcamento;
 use Illuminate\Http\Request;
 
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Http\Requests\FornecedorRequest;
+use App\Http\Requests\OrcamentoRequest;
+use App\Models\Cliente;
 
-class FornecedorController extends Controller
+class OrcamentoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request): Response
     {
-        $fornecedores = Fornecedor::paginate(10);
+        $orcamentos = Orcamento::with(['cliente'])->get();
 
         return  $request->user()->hasVerifiedEmail()
-                ? Inertia::render('Fornecedor/Index' , [
+                ? Inertia::render('Orcamento/Index' , [
                     'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
                     'status' => session('status'),
-                    'fornecedores' => $fornecedores
+                    'orcamentos' => $orcamentos
                 ])
                 : Inertia::render('Auth/VerifyEmail', ['status' => session('status')])
         ;
@@ -34,35 +35,38 @@ class FornecedorController extends Controller
      */
     public function create(Request $request)
     {
+
         return  $request->user()->hasVerifiedEmail()
-                ? Inertia::render('Fornecedor/Create' , [
+                ? Inertia::render('Orcamento/Create' , [
                     'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
                     'status' => session('status')
                 ])
                 : Inertia::render('Auth/VerifyEmail', ['status' => session('status')])
         ;
-    } 
+    }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(FornecedorRequest $request)
+    public function store(OrcamentoRequest $request)
     {
-        Fornecedor::create($request->all());
+        //error_log($request);
 
-        $fornecedores = Fornecedor::all();
+        Orcamento::create($request->all());
 
-        return Inertia::render('Fornecedor/Index' , [
+        $orcamentos = Orcamento::with(['cliente'])->get();
+
+        return Inertia::render('Orcamento/Index' , [
             'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
             'status' => session('status'),
-            'fornecedores' => $fornecedores
+            'orcamentos' => $orcamentos
         ]); 
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Fornecedor $fornecedor)
+    public function show(Orcamento $orcamento)
     {
         //
     }
@@ -70,13 +74,15 @@ class FornecedorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request, Fornecedor $id)
+    public function edit(Request $request, Orcamento $id)
     {
+        //$id->user;
+
         return  $request->user()->hasVerifiedEmail()
-                ? Inertia::render('Fornecedor/Edit' , [
+                ? Inertia::render('Orcamento/Edit' , [
                     'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
                     'status' => session('status'),
-                    'fornecedor' => $id,
+                    'orcamento' => $id,
                 ])
                 : Inertia::render('Auth/VerifyEmail', ['status' => session('status')])
         ;
@@ -85,31 +91,30 @@ class FornecedorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(FornecedorRequest $request, Fornecedor $id)
+    public function update(OrcamentoRequest $request, Orcamento $id)
     {
         $id->update($request->all());
-        
-        $fornecedores = Fornecedor::all();
-        return Inertia::render('Fornecedor/Index' , [
+
+        $orcamentos = Orcamento::with(['cliente'])->get();
+        return Inertia::render('Orcamento/Index' , [
             'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
             'status' => session('status'),
-            'fornecedores' => $fornecedores
+            'orcamentos' => $orcamentos
         ]); 
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, Fornecedor $id)
+    public function destroy(Request $request, Orcamento $id)
     {
-        
         $id->delete();
 
-        $fornecedores = Fornecedor::all();
-        return Inertia::render('Fornecedor/Index' , [
+        $orcamentos = Orcamento::with(['cliente'])->get();
+        return Inertia::render('Orcamento/Index' , [
             'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
             'status' => session('status'),
-            'fornecedores' => $fornecedores
-        ]);
+            'orcamentos' => $orcamentos
+        ]); 
     }
 }

@@ -31,14 +31,14 @@
                                     Nome
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                    CNPJ
+                                    Data de Criação
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                     Opções
                                 </th>
                             </tr>
                         </thead>
-                        <tbody data-accordion="collapse" v-for="(obj, index) in  $page.props.fornecedores.data ">
+                        <tbody data-accordion="collapse" v-for="(obj, index) in  $page.props.planos ">
                             <tr 
                                 v-bind:id="'accordion-collapse-heading-Administrador' + index"
                                 class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100" 
@@ -48,19 +48,20 @@
                             >
                                 <th class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" scope="row">{{ index+1 }}</th>
                                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ obj.name }}</td>
-                                <td>{{ obj.cnpj }}</td>
+                                <td>{{ new Date(obj.created_at).toLocaleString() }}</td>
                                 <td>
-                                    <Botao_editar :href="route('fornecedor.edit' , {id: obj.id})"></Botao_editar>
-                                    <Botao_deletar destino="fornecedor.destroy" :deleteId="obj.id"></Botao_deletar>
+                                    <Botao_editar :href="route('plano.edit' , {id: obj.id})"></Botao_editar>
+                                    <Botao_deletar destino="plano.destroy" :deleteId="obj.id"></Botao_deletar>
                                 </td>
                             </tr>
                             <tr class="hidden bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"  
-                            
                                 v-bind:id="'accordion-collapse-body-Administrador' + index" 
                                 v-bind:aria-labelledby="'accordion-collapse-heading-Administrador' + index"
                             >
-                                <td colspan="3" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" > 
-                                    Criado em: {{ new Date(obj.created_at).toLocaleString() }}
+                                <td colspan="7" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" > 
+                                    <p>Descrição: {{ obj.description }}</p>
+                                    Produtos:
+                                    <p v-for="(obj2, index2) in  obj.produtos "> - {{ obj2.name }}</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -69,12 +70,5 @@
             </div>
         </div>
     </div>
-
-
-
-    
-
-
-
 </template>
 

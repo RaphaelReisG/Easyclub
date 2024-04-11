@@ -25,4 +25,8 @@ class Produto extends Model
     public function fornecedor(){
         return $this->belongsTo(Fornecedor::class);
     }
+
+    public function planos(){
+        return $this->belongsToMany(Plano::class)->withPivot(['qty_item', 'price_item']);
+    }
 }

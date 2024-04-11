@@ -28,17 +28,23 @@
                                     #
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                    Nome
+                                    Data - Solicitação
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                    CNPJ
+                                    Inicio de Analise
+                                </th>
+                                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                    Previsão
+                                </th>
+                                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                    Status
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                     Opções
                                 </th>
                             </tr>
                         </thead>
-                        <tbody data-accordion="collapse" v-for="(obj, index) in  $page.props.fornecedores.data ">
+                        <tbody data-accordion="collapse" v-for="(obj, index) in  $page.props.orcamentos ">
                             <tr 
                                 v-bind:id="'accordion-collapse-heading-Administrador' + index"
                                 class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100" 
@@ -47,11 +53,13 @@
                                 v-bind:aria-controls="'accordion-collapse-body-Administrador' + index"
                             >
                                 <th class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" scope="row">{{ index+1 }}</th>
-                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ obj.name }}</td>
-                                <td>{{ obj.cnpj }}</td>
+                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ new Date(obj.created_at).toLocaleString() }}</td>
+                                <td>{{ new Date(obj.data_inicio_analise).toLocaleString() }}</td>
+                                <td>{{ new Date(obj.data_previsao).toLocaleString() }}</td>
+                                <td>{{ obj.orcamento_status }}</td>
                                 <td>
-                                    <Botao_editar :href="route('fornecedor.edit' , {id: obj.id})"></Botao_editar>
-                                    <Botao_deletar destino="fornecedor.destroy" :deleteId="obj.id"></Botao_deletar>
+                                    <Botao_editar :href="route('orcamento.edit' , {id: obj.id})"></Botao_editar>
+                                    <Botao_deletar destino="orcamento.destroy" :deleteId="obj.id"></Botao_deletar>
                                 </td>
                             </tr>
                             <tr class="hidden bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"  
@@ -60,7 +68,7 @@
                                 v-bind:aria-labelledby="'accordion-collapse-heading-Administrador' + index"
                             >
                                 <td colspan="3" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" > 
-                                    Criado em: {{ new Date(obj.created_at).toLocaleString() }}
+                                    Descrição: {{ obj.description }}
                                 </td>
                             </tr>
                         </tbody>

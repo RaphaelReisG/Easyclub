@@ -2,6 +2,7 @@
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
     import TabelaAccordion_Fornecedor from '@/Components/Tabelas/TabelaAccordion_Fornecedor.vue';
     import Botao_novo from '@/Components/Botoes/Botao_novo.vue';
+    import Paginacao from '@/Components/Paginacao.vue';
     import { Head } from '@inertiajs/vue3';
 </script>
 
@@ -13,6 +14,7 @@
             <div>
                 <h2 class="inline-block font-semibold text-xl text-gray-800 leading-tight">Fornecedores</h2>
                 <Botao_novo :href="route('fornecedor.create')"></Botao_novo>
+                <Paginacao :paginacao="$page.props.fornecedores"/>
             </div>
         </template>
 
@@ -22,6 +24,8 @@
                     
                     <div v-if="$page.props.auth.user.userable_type === 'App\\Models\\Administrador'" class="p-6 text-gray-900">
                         Fornecedores cadastrados no sistema: 
+
+                        {{ $page.props.fornecedores }}
 
                         <TabelaAccordion_Fornecedor/>
                     </div>

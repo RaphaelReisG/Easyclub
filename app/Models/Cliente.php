@@ -18,4 +18,8 @@ class Cliente extends Usuario_sistema
     public function empresa(){
         return $this->belongsTo(Empresa::class);
     }
+
+    public function orcamentos(){
+        return $this->hasMany(Orcamento::class);
+    }
 }

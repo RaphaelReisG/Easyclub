@@ -11,7 +11,7 @@ class PlanoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,27 @@ class PlanoRequest extends FormRequest
      */
     public function rules(): array
     {
+        $rules = [
+            'name' => 'required|max:45',
+            'description' => 'required|max:250'
+        ];
+    
+        if ($this->isMethod('post')) {
+            $rules['name'] = 'required|max:45|unique:tipo__produtos,name';
+        }
+    
+        return $rules;
+    }
+
+    public function messages()
+    {
         return [
-            //
+            'name.required' => "Este campo é obrigatório",
+            'name.max' => "este campo não pode ser maior que 45 caracteres",
+            'name.unique' => 'Já está em uso',
+
+            'description.required' => "Este campo é obrigatório",
+            'description.max' => "Este campo deve ter até 250 caracteres",
         ];
     }
 }

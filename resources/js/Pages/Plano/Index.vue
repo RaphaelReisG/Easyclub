@@ -1,18 +1,18 @@
 <script setup>
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-    import TabelaAccordion_Cliente from '@/Components/Tabelas/TabelaAccordion_Cliente.vue';
+    import TabelaAccordion_Plano from '@/Components/Tabelas/TabelaAccordion_Plano.vue';
     import Botao_novo from '@/Components/Botoes/Botao_novo.vue';
     import { Head } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <Head title="Clientes" />
+    <Head title="Planos" />
 
     <AuthenticatedLayout>
         <template #header>
             <div>
-                <h2 class="inline-block font-semibold text-xl text-gray-800 leading-tight">Clientes</h2>
-                <Botao_novo :href="route('cliente.create')"></Botao_novo>
+                <h2 class="inline-block font-semibold text-xl text-gray-800 leading-tight">Planos</h2>
+                <Botao_novo :href="route('plano.create')"></Botao_novo>
             </div>
         </template>
 
@@ -21,11 +21,9 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     
                     <div v-if="$page.props.auth.user.userable_type === 'App\\Models\\Administrador'" class="p-6 text-gray-900">
-                        Lista de clientes: 
+                        Lista de planos: 
 
-                        opa {{ $page.props }}
-
-                        <TabelaAccordion_Cliente/>
+                        <TabelaAccordion_Plano/>
                     </div>
                     
                 </div>
