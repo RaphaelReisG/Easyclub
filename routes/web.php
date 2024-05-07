@@ -26,12 +26,15 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return Inertia::render(
+        'Auth/Login'
+        // ,[
+        //     'canLogin' => Route::has('login'),
+        //     'canRegister' => Route::has('register'),
+        //     'laravelVersion' => Application::VERSION,
+        //     'phpVersion' => PHP_VERSION,
+        // ]
+    );
 });
 
 Route::get('/dashboard', function () {
@@ -60,13 +63,13 @@ Route::middleware('auth')->group(function () {
     Route::put('/administrador/{id}', [AdministradorController::class, 'update'])->name('administrador.update');
     Route::delete('/administrador/{id}', [AdministradorController::class, 'destroy'])->name('administrador.destroy');
 
-     //Cliente
-     Route::get('/cliente', [ClienteController::class, 'index'])->name('cliente.index');
-     Route::get('/cliente/Create', [ClienteController::class, 'create'])->name('cliente.create');
-     Route::get('/cliente/Edit/{id}', [ClienteController::class, 'edit'])->name('cliente.edit');
-     Route::post('/cliente', [ClienteController::class, 'store'])->name('cliente.store');
-     Route::put('/cliente/{id}', [ClienteController::class, 'update'])->name('cliente.update');
-     Route::delete('/cliente/{id}', [ClienteController::class, 'destroy'])->name('cliente.destroy');
+    //Cliente
+    Route::get('/cliente', [ClienteController::class, 'index'])->name('cliente.index');
+    Route::get('/cliente/Create', [ClienteController::class, 'create'])->name('cliente.create');
+    Route::get('/cliente/Edit/{id}', [ClienteController::class, 'edit'])->name('cliente.edit');
+    Route::post('/cliente', [ClienteController::class, 'store'])->name('cliente.store');
+    Route::put('/cliente/{id}', [ClienteController::class, 'update'])->name('cliente.update');
+    Route::delete('/cliente/{id}', [ClienteController::class, 'destroy'])->name('cliente.destroy');
 
     //Empresa
     Route::get('/empresa', [EmpresaController::class, 'index'])->name('empresa.index');
@@ -84,13 +87,13 @@ Route::middleware('auth')->group(function () {
     Route::put('/fornecedor/{id}', [FornecedorController::class, 'update'])->name('fornecedor.update');
     Route::delete('/fornecedor/{id}', [FornecedorController::class, 'destroy'])->name('fornecedor.destroy');
 
-     //Produto
-     Route::get('/produto', [ProdutoController::class, 'index'])->name('produto.index');
-     Route::get('/produto/Create', [ProdutoController::class, 'create'])->name('produto.create');
-     Route::get('/produto/Edit/{id}', [ProdutoController::class, 'edit'])->name('produto.edit');
-     Route::post('/produto', [ProdutoController::class, 'store'])->name('produto.store');
-     Route::put('/produto/{id}', [ProdutoController::class, 'update'])->name('produto.update');
-     Route::delete('/produto/{id}', [ProdutoController::class, 'destroy'])->name('produto.destroy');
+    //Produto
+    Route::get('/produto', [ProdutoController::class, 'index'])->name('produto.index');
+    Route::get('/produto/Create', [ProdutoController::class, 'create'])->name('produto.create');
+    Route::get('/produto/Edit/{id}', [ProdutoController::class, 'edit'])->name('produto.edit');
+    Route::post('/produto', [ProdutoController::class, 'store'])->name('produto.store');
+    Route::put('/produto/{id}', [ProdutoController::class, 'update'])->name('produto.update');
+    Route::delete('/produto/{id}', [ProdutoController::class, 'destroy'])->name('produto.destroy');
 
     //Tipo_produto
     Route::get('/tipo_produto', [TipoProdutoController::class, 'index'])->name('tipo_produto.index');
@@ -115,6 +118,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/orcamento', [OrcamentoController::class, 'store'])->name('orcamento.store');
     Route::put('/orcamento/{id}', [OrcamentoController::class, 'update'])->name('orcamento.update');
     Route::delete('/orcamento/{id}', [OrcamentoController::class, 'destroy'])->name('orcamento.destroy');
+    Route::get('/orcamento/data_inicio_analise/{id}', [OrcamentoController::class, 'updateInicioAnalise'])->name('orcamento.updateInicioAnalise');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

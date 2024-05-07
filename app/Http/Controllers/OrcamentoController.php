@@ -117,4 +117,22 @@ class OrcamentoController extends Controller
             'orcamentos' => $orcamentos
         ]); 
     }
+
+    public function updateInicioAnalise(Request $request, Orcamento $id)
+    {
+
+        error_log("updateInicioAnalise");
+
+        $id->data_inicio_analise = now();
+        $id->save();
+
+        $orcamentos = Orcamento::with(['cliente'])->get();
+        return Inertia::render('Orcamento/Index' , [
+            'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
+            'status' => session('status'),
+            'orcamentos' => $orcamentos
+        ]); 
+    }
+
+
 }

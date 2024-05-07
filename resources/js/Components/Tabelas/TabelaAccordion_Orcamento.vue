@@ -4,6 +4,7 @@
     import { onMounted } from 'vue'
     import { initFlowbite } from 'flowbite'
 
+    import Botao_especial_inicioAnalise from '@/Components/Botoes/Botao_especial_inicioAnalise.vue';
     import Botao_editar from '@/Components/Botoes/Botao_editar.vue';
     import Botao_deletar from '@/Components/Botoes/Botao_deletar.vue';
 
@@ -54,10 +55,11 @@
                             >
                                 <th class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" scope="row">{{ index+1 }}</th>
                                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ new Date(obj.created_at).toLocaleString() }}</td>
-                                <td>{{ new Date(obj.data_inicio_analise).toLocaleString() }}</td>
-                                <td>{{ new Date(obj.data_previsao).toLocaleString() }}</td>
-                                <td>{{ obj.orcamento_status }}</td>
+                                <td>{{ obj.data_inicio_analise ? new Date(obj.data_inicio_analise).toLocaleString() : 'Pendente' }}</td>
+                                <td>{{ obj.data_previsao ? new Date(obj.data_previsao).toLocaleString() : 'Pendente' }}</td>
+                                <td>{{ obj.orcamento_status ? obj.orcamento_status : 'Pendente' }}</td>
                                 <td>
+                                    <Botao_especial_inicioAnalise v-if="$page.props.auth.user.userable_type === 'App\\Models\\Administrador' && obj.data_inicio_analise === null" :href="route('orcamento.updateInicioAnalise' , {id: obj.id})"></Botao_especial_inicioAnalise>
                                     <Botao_editar :href="route('orcamento.edit' , {id: obj.id})"></Botao_editar>
                                     <Botao_deletar destino="orcamento.destroy" :deleteId="obj.id"></Botao_deletar>
                                 </td>
@@ -68,7 +70,9 @@
                                 v-bind:aria-labelledby="'accordion-collapse-heading-Administrador' + index"
                             >
                                 <td colspan="3" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" > 
-                                    Descrição: {{ obj.description }}
+                                    Descrição: {{ obj.description }} <br>
+                                    Data de encerramento: {{  obj.data_encerramento ? new Date(obj.data_encerramento).toLocaleString() : 'Pendente' }} <br>
+                                    Observação da resposta: {{ obj.response_observation }} <br>
                                 </td>
                             </tr>
                         </tbody>

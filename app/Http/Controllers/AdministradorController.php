@@ -52,9 +52,11 @@ class AdministradorController extends Controller
     public function store(AdministradorRequest $request)
     {
         $administrador = Administrador::create($request->only('name'));
-        $administrador->user()->create(['email' => $request->email, "password" =>Hash::make($request->password)]);
+        $user = $administrador->user()->create(['email' => $request->email, "password" =>Hash::make($request->password)]);
 
         $administradores = Administrador::with(['user'])->get();
+
+        $user->sendEmailVerificationNotification();
 
 
         return Inertia::render('Administrador/Index' , [

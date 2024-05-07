@@ -40,7 +40,7 @@
                     
                     <div v-if="$page.props.auth.user.userable_type === 'App\\Models\\Cliente'" class="p-6 text-gray-900">
 
-                        {{ $page.props.auth.user }}
+                    
                         
                         <p>Preencha o formulario abaixo para adicionar um novo orçamento ao sistema.</p>
 

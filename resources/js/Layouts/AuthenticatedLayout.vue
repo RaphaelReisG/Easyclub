@@ -19,7 +19,7 @@ const showingNavigationDropdown = ref(false);
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
-                        <div class="flex">
+                        <div v-if="$page.props.auth.user.userable_type === 'App\\Models\\Administrador'" class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
                                 <Link :href="route('dashboard')">
@@ -50,7 +50,7 @@ const showingNavigationDropdown = ref(false);
 
                                     <template #content>
                                         <DropdownLink :href="route('administrador.index')"> Administrador </DropdownLink>
-                                        <DropdownLink :href="route('cliente.index')"> Cliente </DropdownLink>
+                                        <DropdownLink :href="route('cliente.index')"> Usuarios </DropdownLink>
                                         <DropdownLink :href="route('empresa.index')"> Empresa </DropdownLink>
                                     </template>
                                 </Dropdown>
@@ -73,9 +73,59 @@ const showingNavigationDropdown = ref(false);
                                         <DropdownLink :href="route('orcamento.index')"> Orcamentos </DropdownLink>
                                     </template>
                                 </Dropdown>
-                                
+                            </div> 
+                        </div>
+
+                        <div v-else class="flex">
+                            <!-- Logo -->
+                            <div class="shrink-0 flex items-center">
+                                <Link :href="route('dashboard')">
+                                    <ApplicationLogo
+                                        class="block h-9 w-auto fill-current text-gray-800"
+                                    />
+                                </Link>
                             </div>
-                            
+
+                            <!-- Navigation Links -->
+                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                    Dashboard
+                                </NavLink>
+                            </div>
+                            <div class="shrink-0 flex items-center">
+                                <Dropdown width="48">
+                                    <template #trigger>
+                                        <span class="inline-flex rounded-md">
+                                            <button
+                                                type="button"
+                                                class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
+                                            >
+                                                Ambiente
+                                            </button>
+                                        </span>
+                                    </template>
+
+                                    <template #content>
+                                        <DropdownLink :href="route('cliente.index')"> Usuarios </DropdownLink>
+                                    </template>
+                                </Dropdown>
+                                <Dropdown width="48">
+                                    <template #trigger>
+                                        <span class="inline-flex rounded-md">
+                                            <button
+                                                type="button"
+                                                class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
+                                            >
+                                                Comercial
+                                            </button>
+                                        </span>
+                                    </template>
+
+                                    <template #content>
+                                        <DropdownLink :href="route('orcamento.index')"> Orcamentos </DropdownLink>
+                                    </template>
+                                </Dropdown>
+                            </div> 
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ms-6">
@@ -107,7 +157,7 @@ const showingNavigationDropdown = ref(false);
                                     </template>
 
                                     <template #content>
-                                        <DropdownLink :href="route('profile.edit')"> Profile </DropdownLink>
+                                        <DropdownLink :href="route('profile.edit')"> Perfil </DropdownLink>
                                         <DropdownLink :href="route('logout')" method="post" as="button">
                                             Log Out
                                         </DropdownLink>

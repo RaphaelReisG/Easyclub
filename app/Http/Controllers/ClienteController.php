@@ -19,14 +19,27 @@ class ClienteController extends Controller
      */
     public function index(Request $request): Response
     { 
+
+        error_log("Tipo: ");
+        error_log($request->user()->userable_type);
+
+        if($request->user()->userable_type == "App\Models\Administrador"){
+            $clientes = Cliente::with(['user', 'empresa'])->get();
+        }
+        else{
+            //error_log("ID empresa: ");
+            //error_log($request->user()->userable->empresa_id);
+            $clientes = Cliente::with(['user', 'empresa'])->where("empresa_id", "=", $request->user()->userable->empresa_id );
+        }
+
+
         $clientes = Cliente::with(['user', 'empresa'])->get();
 
         return  $request->user()->hasVerifiedEmail()
                 ? Inertia::render('Cliente/Index' , [
                     'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
                     'status' => session('status'),
-                    'usuarios' => $clientes,
-                    "php" => phpinfo()
+                    'usuarios' => $clientes
                 ])
                 : Inertia::render('Auth/VerifyEmail', ['status' => session('status')])
         ;
@@ -60,9 +73,11 @@ class ClienteController extends Controller
         $cliente = Empresa::findOrfail($request->empresa_id)->clientes()->create($request->all());
 
         //$cliente = Cliente::create($request->only('name'));
-        $cliente->user()->create(['email' => $request->email, "password" =>Hash::make($request->password)]);
+        $user = $cliente->user()->create(['email' => $request->email, "password" =>Hash::make($request->password)]);
 
         $clientes = Cliente::with(['user', 'empresa'])->get();
+
+        $user->sendEmailVerificationNotification();
 
 
         return Inertia::render('Cliente/Index' , [

@@ -23,6 +23,7 @@ class OrcamentoRequest extends FormRequest
     {
         return [
             'description' => 'required|max:250',
+            'response_observation' => 'max:250',
             'data_inicio_analise' => 'date',
             'data_previsao' => 'date',
             'data_encerramento' => 'date',
@@ -36,6 +37,8 @@ class OrcamentoRequest extends FormRequest
         return [
             'description.required' => "Este campo é obrigatório",
             'description.max' => "Este campo deve ter no maximo 250 caracteres",
+
+            'response_observation.max' => "Este campo deve ter no maximo 250 caracteres",
 
             'data_inicio_analise.date' => "Formato invalido",
 

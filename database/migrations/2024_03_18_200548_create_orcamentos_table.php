@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->string('description');
+            $table->string('response_observation')->nullable();
             $table->dateTime('data_inicio_analise')->nullable();
             $table->dateTime('data_previsao')->nullable();
             $table->dateTime('data_encerramento')->nullable();
