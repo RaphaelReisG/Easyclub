@@ -14,13 +14,16 @@ return new class extends Migration
         Schema::create('orcamentos', function (Blueprint $table) {
             $table->id();
 
+            $table->string('name');
             $table->string('description');
             $table->string('response_observation')->nullable();
             $table->dateTime('data_inicio_analise')->nullable();
-            $table->dateTime('data_previsao')->nullable();
+            //$table->dateTime('data_previsao')->nullable();
             $table->dateTime('data_encerramento')->nullable();
             $table->boolean('orcamento_status')->nullable();
             $table->foreignId('cliente_id')->constrained('clientes');
+            $table->foreignId('administrador_id')->nullable()->constrained('administradors');
+            $table->foreignId('tipo_orcamento_id')->constrained('tipo_orcamentos');
 
 
             $table->timestamps();

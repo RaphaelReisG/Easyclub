@@ -16,8 +16,6 @@
 
 
 <template>
-
-
     <!-- component -->
     <div class="flex flex-col">
         <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
@@ -30,27 +28,26 @@
                                     Nome
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                    Email
+                                    Criado em:
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                     Opções
                                 </th>
                             </tr>
                         </thead>
-                        <tbody data-accordion="collapse" v-for="(obj, index) in  $page.props.usuarios ">
+                        <tbody data-accordion="collapse" v-for="(obj, index) in  $page.props.tipoOrcamento ">
                             <tr 
                                 v-bind:id="'accordion-collapse-heading-Administrador' + index"
                                 class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100" 
-                                v-bind:data-accordion-target="'#accordion-collapse-body-Administrador' + index"
+                                v-bind:data-accordion-target="'#accordion-collapse-body-Administrador' + index" 
                                 aria-expanded="false" 
                                 v-bind:aria-controls="'accordion-collapse-body-Administrador' + index"
                             >
-                                
                                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ obj.name }}</td>
-                                <td>{{ obj.user.email }}</td>
+                                <td>{{ new Date(obj.created_at).toLocaleString() }}</td>
                                 <td>
-                                    <Botao_editar :href="route('administrador.edit' , {id: obj.id})"></Botao_editar>
-                                    <Botao_deletar destino="administrador.destroy" :deleteId="obj.id"></Botao_deletar>
+                                    <Botao_editar :href="route('tipoOrcamento.edit' , {id: obj.id})"></Botao_editar>
+                                    <Botao_deletar destino="tipoOrcamento.destroy" :deleteId="obj.id"></Botao_deletar>
                                 </td>
                             </tr>
                             <tr class="hidden bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"  
@@ -58,7 +55,7 @@
                                 v-bind:aria-labelledby="'accordion-collapse-heading-Administrador' + index"
                             >
                                 <td colspan="3" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" > 
-                                    Criado em: {{ new Date(obj.created_at).toLocaleString() }}
+                                    Descrição: {{ obj.description }}
                                 </td>
                             </tr>
                         </tbody>

@@ -67,9 +67,10 @@ const showingNavigationDropdown = ref(false);
                                     </template>
 
                                     <template #content>
-                                        <DropdownLink :href="route('fornecedor.index')"> Fornecedor </DropdownLink>
+                                        <!-- <DropdownLink :href="route('fornecedor.index')"> Fornecedor </DropdownLink>
                                         <DropdownLink :href="route('produto.index')"> Produto </DropdownLink>
-                                        <DropdownLink :href="route('tipo_produto.index')"> Tipo de Produto </DropdownLink>
+                                        <DropdownLink :href="route('tipo_produto.index')"> Tipo de Produto </DropdownLink> -->
+                                        <DropdownLink :href="route('tipoOrcamento.index')"> Tipo de Orçamento </DropdownLink>
                                         <DropdownLink :href="route('orcamento.index')"> Orcamentos </DropdownLink>
                                     </template>
                                 </Dropdown>

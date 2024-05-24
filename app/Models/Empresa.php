@@ -11,7 +11,8 @@ class Empresa extends Model
 
     protected $fillable = [
         'name',
-        'cnpj'
+        'cnpj',
+        'time_sla'
     ];
 
     public function clientes(){

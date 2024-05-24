@@ -26,9 +26,7 @@
                     <table class="min-w-full">
                         <thead class="bg-gray-200 border-b">
                             <tr>
-                                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                    #
-                                </th>
+
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                     Nome
                                 </th>
@@ -51,7 +49,6 @@
                                 aria-expanded="false" 
                                 v-bind:aria-controls="'accordion-collapse-body-Administrador' + index"
                             >
-                                <th class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" scope="row">{{ index+1 }}</th>
                                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ obj.name }}</td>
                                 <td>{{ obj.user.email }}</td>
                                 <td>{{ obj.empresa.name }}</td>

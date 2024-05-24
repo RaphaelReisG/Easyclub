@@ -3,32 +3,31 @@
 
     import formDefault from '@/Components/forms/formDefault.vue';
     import inputNew from '@/Components/forms/inputs/inputNew.vue';
-    import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
+    import textAreaNew from '@/Components/forms/inputs/textAreaNew.vue';
+    import { Head, Link, useForm } from '@inertiajs/vue3';
     import InputError from '@/Components/InputError.vue';
 
-    const empresa = usePage().props.empresa;
-    
 
     const form = useForm({
-        name: empresa.name,
-        cnpj: empresa.cnpj,
-        time_sla: empresa.time_sla
+        name: '',
+        description: '',
     });
 
     const submit = () => {
-        var t = empresa.id
-        //alert("opa"+t);
-        form.put(route('empresa.update', {id: t}));
+        //alert("opa");
+        form.post(route('tipoOrcamento.store'));
     };
+
+
 </script>
 
 <template>
-    <Head title="Empresa - Alterar" />
+    <Head title="Tipo de orçamento - Novo" />
 
     <AuthenticatedLayout>
         <template #header>
             <div>
-                <h2 class="inline-block font-semibold text-xl text-gray-800 leading-tight"> <Link class="underline" :href="route('empresa.index')">Empresas</Link> > Editar</h2>
+                <h2 class="inline-block font-semibold text-xl text-gray-800 leading-tight"><Link class="underline" :href="route('tipoOrcamento.index')">Tipos de Orçamentos</Link> > Novo</h2>
             </div>
         </template>
 
@@ -37,20 +36,16 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     
                     <div v-if="$page.props.auth.user.userable_type === 'App\\Models\\Administrador'" class="p-6 text-gray-900">
+                        
+                        <p>Preencha o formulario abaixo para adicionar um novo tipo de orçamento ao sistema.</p>
 
-                        <p>Preencha o formulario abaixo para alterar os atributos de uma empresa no sistema.</p>
-
-                        <formDefault @submit.prevent="submit" method="PUT">
+                        <formDefault @submit.prevent="submit" method="POST">
                             <template #content>
                                 <inputNew rotulo="Nome" placeholder="Nome Completo" name="name" type="text" v-model="form.name" required></inputNew>
                                 <InputError class="mt-2" :message="form.errors.name" />
                                 <br><br>
-                                <inputNew rotulo="Tempo de SLA" placeholder="Tempo de SLA em dias" name="time_sla" type="text"
-                                    v-model="form.time_sla" required></inputNew>
-                                <InputError class="mt-2" :message="form.errors.time_sla" />
-                                <br><br>
-                                <inputNew rotulo="CNPJ" placeholder="CNPJ" name="cnpj" type="text" v-model="form.cnpj" required></inputNew>
-                                <InputError class="mt-2" :message="form.errors.cnpj" />
+                                <textAreaNew rotulo="Descrição" placeholder="Descrição" name="description" type="text" v-model="form.description" required></textAreaNew>
+                                <InputError class="mt-2" :message="form.errors.description" />
                                 <br><br>
                             </template>
                         </formDefault>

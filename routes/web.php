@@ -6,6 +6,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\FornecedorController;
 use App\Http\Controllers\TipoProdutoController;
+use App\Http\Controllers\TipoOrcamentoController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\PlanoController;
 use App\Http\Controllers\OrcamentoController;
@@ -110,6 +111,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/plano', [PlanoController::class, 'store'])->name('plano.store');
     Route::put('/plano/{id}', [PlanoController::class, 'update'])->name('plano.update');
     Route::delete('/plano/{id}', [PlanoController::class, 'destroy'])->name('plano.destroy');
+
+    //TipoOrcamento
+    Route::get('/tipoOrcamento', [TipoOrcamentoController::class, 'index'])->name('tipoOrcamento.index');
+    Route::get('/tipoOrcamento/Create', [TipoOrcamentoController::class, 'create'])->name('tipoOrcamento.create');
+    Route::get('/tipoOrcamento/Edit/{id}', [TipoOrcamentoController::class, 'edit'])->name('tipoOrcamento.edit');
+    Route::post('/tipoOrcamento', [TipoOrcamentoController::class, 'store'])->name('tipoOrcamento.store');
+    Route::put('/tipoOrcamento/{id}', [TipoOrcamentoController::class, 'update'])->name('tipoOrcamento.update');
+    Route::delete('/tipoOrcamento/{id}', [TipoOrcamentoController::class, 'destroy'])->name('tipoOrcamento.destroy');
 
     //Orçamento
     Route::get('/orcamento', [OrcamentoController::class, 'index'])->name('orcamento.index');

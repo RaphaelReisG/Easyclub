@@ -10,6 +10,7 @@ import InputError from '@/Components/InputError.vue';
 const form = useForm({
     name: '',
     cnpj: '',
+    time_sla: 30,
 });
 
 const submit = () => {
@@ -92,6 +93,10 @@ function validarCNPJ(cnpj) {
                                 <inputNew rotulo="Nome" placeholder="Nome Completo da Empresa" name="name" type="text"
                                     v-model="form.name" required></inputNew>
                                 <InputError class="mt-2" :message="form.errors.name" />
+                                <br><br>
+                                <inputNew rotulo="Tempo de SLA" placeholder="Tempo de SLA em dias" name="time_sla" type="text"
+                                    v-model="form.time_sla" required></inputNew>
+                                <InputError class="mt-2" :message="form.errors.time_sla" />
                                 <br><br>
                                 <inputNew rotulo="CNPJ" placeholder="CNPJ" name="cnpj" type="text" v-model="form.cnpj"
                                     required></inputNew>

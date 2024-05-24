@@ -25,9 +25,6 @@
                         <thead class="bg-gray-200 border-b">
                             <tr>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                    #
-                                </th>
-                                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                     Nome
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
@@ -46,7 +43,6 @@
                                 aria-expanded="false" 
                                 v-bind:aria-controls="'accordion-collapse-body-Administrador' + index"
                             >
-                                <th class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" scope="row">{{ index+1 }}</th>
                                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ obj.name }}</td>
                                 <td>{{ obj.cnpj }}</td>
                                 <td>
@@ -58,8 +54,10 @@
                                 v-bind:id="'accordion-collapse-body-Administrador' + index" 
                                 v-bind:aria-labelledby="'accordion-collapse-heading-Administrador' + index"
                             >
-                                <td colspan="3" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" > 
+                                <td colspan="3" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" >  
                                     Criado em: {{ new Date(obj.created_at).toLocaleString() }}
+                                    <br>
+                                    SLA: {{ obj.time_sla }} dias
                                 </td>
                             </tr>
                         </tbody>

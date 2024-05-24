@@ -24,7 +24,8 @@ class EmpresaRequest extends FormRequest
         
         $rules = [
             'name' => 'required|max:45',
-            'cnpj' => 'required|min:14|max:14'
+            'cnpj' => 'required|min:14|max:14',
+            'time_sla' => 'required|integer'
         ];
     
         // Adiciona as regras de senha apenas se for um formulário de criação
@@ -73,6 +74,9 @@ class EmpresaRequest extends FormRequest
         return [
             'name.required' => "O nome é obrigatório",
             'name.max' => "O nome não pode ser maior que 45 caracteres",
+
+            'time_sla.required' => "Este campo é obrigatório",
+            'time_sla.integer' => "Este campo só pode conter numeros inteiros",
 
             'cnpj.required' => "O CNPJ é obrigatório",
             'cnpj.min' => 'O CNPJ deve ter 14 caracteres',
