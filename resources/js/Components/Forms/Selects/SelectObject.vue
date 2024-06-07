@@ -34,7 +34,7 @@
 
 
 
-    <div class="max-w-2xl mx-auto">
+    
 
         <label :for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"> {{ rotulo }}</label>
         
@@ -44,6 +44,4 @@
         </select>
 
 
-
-    </div>
 </template>

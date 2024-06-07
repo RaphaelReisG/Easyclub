@@ -19,18 +19,18 @@ class Orcamento extends Model
         'response_observation',
         'cliente_id',
         'administrador_id',
-        'tipo_orcamento_id'
+        //'tipo_orcamento_id'
     ];
 
     public function cliente(){
         return $this->belongsTo(Cliente::class);
     }
 
-    public function tipo_orcamento(){
-        return $this->belongsTo(TipoOrcamento::class);
-    }
-
     public function administrador(){
         return $this->belongsTo(Administrador::class);
+    }
+
+    public function itemOrcamentos(){
+        return $this->hasMany(ItemOrcamento::class);
     }
 }

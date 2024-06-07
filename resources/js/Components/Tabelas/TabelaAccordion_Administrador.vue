@@ -53,7 +53,7 @@
                                     <Botao_deletar destino="administrador.destroy" :deleteId="obj.id"></Botao_deletar>
                                 </td>
                             </tr>
-                            <tr class="hidden bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"  
+                            <tr class="hidden bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"   
                                 v-bind:id="'accordion-collapse-body-Administrador' + index" 
                                 v-bind:aria-labelledby="'accordion-collapse-heading-Administrador' + index"
                             >

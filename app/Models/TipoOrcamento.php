@@ -14,7 +14,7 @@ class TipoOrcamento extends Model
         'description'
     ];
 
-    public function orcamentos(){
-        return $this->hasMany(Orcamento::class);
+    public function itemOrcamentos(){
+        return $this->hasMany(ItemOrcamento::class);
     }
 }

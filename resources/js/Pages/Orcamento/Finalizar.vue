@@ -7,28 +7,28 @@
     import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
     import InputError from '@/Components/InputError.vue';
 
-    const tipoOrcamento = usePage().props.tipoOrcamento;
+    const orcamento = usePage().props.orcamento;
     
 
     const form = useForm({
-        name: tipoOrcamento.name,
-        description: tipoOrcamento.description,
+        orcamento_status: false,
+        response_observation: '',
     });
 
     const submit = () => {
-        var t = tipoOrcamento.id
+        var t = orcamento.id
         //alert("opa"+t);
-        form.put(route('tipoOrcamento.update', {id: t}));
+        form.put(route('orcamento.updateOrcamentoStatus', {id: t}));
     };
 </script>
 
 <template>
-    <Head title="Tipo de item de orçamento - Alterar" />
+    <Head title="Orçamento - Finalizar" />
 
     <AuthenticatedLayout>
         <template #header>
             <div>
-                <h2 class="inline-block font-semibold text-xl text-gray-800 leading-tight"> <Link class="underline" :href="route('tipoOrcamento.index')">Tipos de item de Orçamentos</Link> > Editar</h2>
+                <h2 class="inline-block font-semibold text-xl text-gray-800 leading-tight"> <Link class="underline" :href="route('orcamento.index')">Orçamentos</Link> > Finalizar</h2>
             </div>
         </template>
 
@@ -38,16 +38,18 @@
                     
                     <div v-if="$page.props.auth.user.userable_type === 'App\\Models\\Administrador'" class="p-6 text-gray-900">
 
-                        <p>Preencha o formulario abaixo para alterar os atributos de um tipo de orçamento no sistema.</p>
+                        <p>Preencha o formulario abaixo para finalizar um orçamento no sistema.</p>
 
                         <formDefault @submit.prevent="submit" method="PUT">
                             <template #content>
-                                <inputNew rotulo="Nome" placeholder="Nome Completo" name="name" type="text" v-model="form.name" required></inputNew>
-                                <InputError class="mt-2" :message="form.errors.name" />
+                                Status: 
+                                <input style="margin-right: 4px; margin-left: 5px;" name="orcamento_status" type="checkbox" v-model="form.orcamento_status"/>
+                                {{ form.orcamento_status ? "Aprovado" : "Reprovado" }}
+                                <InputError class="mt-2" :message="form.errors.orcamento_status" />
                                 <br><br>
-                                <textAreaNew rotulo="Descrição" placeholder="Descrição" name="description" type="text" v-model="form.description" required></textAreaNew>
-                                <InputError class="mt-2" :message="form.errors.description" />
-                                <br><br>
+                                <textAreaNew rotulo="Observação" placeholder="Escreva uma observação para responder o cliente." name="response_observation" type="text"
+                                    v-model="form.response_observation" required></textAreaNew>
+                                <InputError class="mt-2" :message="form.errors.response_observation" />
                             </template>
                         </formDefault>
                     </div>

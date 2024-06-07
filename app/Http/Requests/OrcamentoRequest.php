@@ -22,19 +22,30 @@ class OrcamentoRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'name' => 'required|max:250',
             'description' => 'required|max:250',
             'response_observation' => 'max:250',
-            'data_inicio_analise' => 'date',
-            'data_previsao' => 'date',
-            'data_encerramento' => 'date',
-            'orcamento_status' => 'boolean',
-            'cliente_id' => 'required|numeric'
+            //'data_inicio_analise' => 'date',
+            //'data_previsao' => 'date',
+            //'data_encerramento' => 'date',
+            //'orcamento_status' => 'boolean',
+            //'cliente_id' => 'required|numeric',
+
+            /*'itens' => 'required|array',
+            'itens.*.name' => 'required|string|max:255',
+            'itens.*.description' => 'nullable|string',
+            'itens.*.quantity' => 'required|integer|min:2',
+            'itens.*.product_code' => 'nullable|string|max:255',
+            'itens.*.manufacturer_name' => 'nullable|string|max:255',*/
         ];
     }
 
     public function messages()
     {
         return [
+            'name.required' => "Este campo é obrigatório",
+            'name.max' => "Este campo deve ter no maximo 250 caracteres",
+
             'description.required' => "Este campo é obrigatório",
             'description.max' => "Este campo deve ter no maximo 250 caracteres",
 

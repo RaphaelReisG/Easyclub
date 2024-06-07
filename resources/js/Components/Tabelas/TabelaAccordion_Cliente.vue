@@ -17,7 +17,6 @@
 
 <template>
 
-
     <!-- component -->
     <div class="flex flex-col">
         <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
@@ -41,7 +40,7 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody data-accordion="collapse" v-for="(obj, index) in  $page.props.usuarios ">
+                        <tbody data-accordion="collapse" v-for="(obj, index) in  $page.props.usuarios "> 
                             <tr 
                                 v-bind:id="'accordion-collapse-heading-Administrador' + index"
                                 class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100" 

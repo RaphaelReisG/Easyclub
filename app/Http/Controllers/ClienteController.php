@@ -18,32 +18,28 @@ class ClienteController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request): Response
-    { 
+{
+    error_log("Tipo: "); 
+    error_log($request->user()->userable_type);
 
-        error_log("Tipo: ");
-        error_log($request->user()->userable_type);
-
-        if($request->user()->userable_type == "App\Models\Administrador"){
-            $clientes = Cliente::with(['user', 'empresa'])->get();
-        }
-        else{
-            //error_log("ID empresa: ");
-            //error_log($request->user()->userable->empresa_id);
-            $clientes = Cliente::with(['user', 'empresa'])->where("empresa_id", "=", $request->user()->userable->empresa_id );
-        }
-
-
+    if ($request->user()->userable_type == "App\Models\Administrador") {
         $clientes = Cliente::with(['user', 'empresa'])->get();
-
-        return  $request->user()->hasVerifiedEmail()
-                ? Inertia::render('Cliente/Index' , [
-                    'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
-                    'status' => session('status'),
-                    'usuarios' => $clientes
-                ])
-                : Inertia::render('Auth/VerifyEmail', ['status' => session('status')])
-        ;
+    } else {
+        error_log("ID empresa: ");
+        error_log($request->user()->userable->empresa_id);
+        $clientes = Cliente::with(['user', 'empresa'])
+            ->where("empresa_id", "=", $request->user()->userable->empresa_id)
+            ->get();
     }
+
+    return  $request->user()->hasVerifiedEmail()
+            ? Inertia::render('Cliente/Index', [
+                'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
+                'status' => session('status'),
+                'usuarios' => $clientes
+            ])
+            : Inertia::render('Auth/VerifyEmail', ['status' => session('status')]);
+}
 
     /**
      * Show the form for creating a new resource.

@@ -128,6 +128,10 @@ Route::middleware('auth')->group(function () {
     Route::put('/orcamento/{id}', [OrcamentoController::class, 'update'])->name('orcamento.update');
     Route::delete('/orcamento/{id}', [OrcamentoController::class, 'destroy'])->name('orcamento.destroy');
     Route::get('/orcamento/data_inicio_analise/{id}', [OrcamentoController::class, 'updateInicioAnalise'])->name('orcamento.updateInicioAnalise');
+    Route::get('/orcamento/FormularioFinalizar/{id}', [OrcamentoController::class, 'carregaPageUpdateOrcamento'])->name('orcamento.carregaPageUpdateOrcamento');
+    Route::put('/orcamento/FormularioFinalizar/{id}', [OrcamentoController::class, 'updateOrcamentoStatus'])->name('orcamento.updateOrcamentoStatus');
+
+
 });
 
 require __DIR__ . '/auth.php';

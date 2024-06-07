@@ -44,16 +44,16 @@
 
                         <formDefault @submit.prevent="submit" method="POST">
                             <template #content>
-                                <inputNew rotulo="Nome" placeholder="Nome Completo" name="name" type="text" v-model="form.name" required></inputNew>
+                                <inputNew rotulo="Nome *" placeholder="Nome Completo" name="name" type="text" v-model="form.name" required></inputNew>
                                 <InputError class="mt-2" :message="form.errors.name" />
                                 <br><br>
-                                <inputNew rotulo="E-mail" placeholder="E-mail" name="email" type="email" v-model="form.email" required></inputNew>
+                                <inputNew rotulo="E-mail *" placeholder="E-mail" name="email" type="email" v-model="form.email" required></inputNew>
                                 <InputError class="mt-2" :message="form.errors.email" />
                                 <br><br>
-                                <inputNew rotulo="Senha" placeholder="Senha" name="password" type="password" v-model="form.password" required></inputNew>
+                                <inputNew rotulo="Senha *" placeholder="Senha" name="password" type="password" v-model="form.password" required></inputNew>
                                 <InputError class="mt-2" :message="form.errors.password" />
                                 <br><br>
-                                <inputNew rotulo="Confirme a Senha" placeholder="Confirme a Senha" name="password_confirmation" type="password" v-model="form.password_confirmation" required></inputNew>
+                                <inputNew rotulo="Confirme a Senha *" placeholder="Confirme a Senha" name="password_confirmation" type="password" v-model="form.password_confirmation" required></inputNew>
                                 <InputError class="mt-2" :message="form.errors.password_confirmation" />
                                 <br><br>
                             </template>

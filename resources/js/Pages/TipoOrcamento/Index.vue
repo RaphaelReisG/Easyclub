@@ -6,12 +6,12 @@
 </script>
 
 <template>
-    <Head title="Tipo de produto - Index" />
+    <Head title="Tipo de item de orçamento - Index" />
 
     <AuthenticatedLayout>
         <template #header>
             <div>
-                <h2 class="inline-block font-semibold text-xl text-gray-800 leading-tight">Tipos de Orçamentos</h2>
+                <h2 class="inline-block font-semibold text-xl text-gray-800 leading-tight">Tipos de item de Orçamentos</h2>
                 <Botao_novo :href="route('tipoOrcamento.create')"></Botao_novo>
             </div>
         </template>

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->boolean('orcamento_status')->nullable();
             $table->foreignId('cliente_id')->constrained('clientes');
             $table->foreignId('administrador_id')->nullable()->constrained('administradors');
-            $table->foreignId('tipo_orcamento_id')->constrained('tipo_orcamentos');
+            //$table->foreignId('tipo_orcamento_id')->constrained('tipo_orcamentos'); 
 
 
             $table->timestamps();

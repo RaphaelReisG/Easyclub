@@ -22,12 +22,12 @@
 </script>
 
 <template>
-    <Head title="Tipo de orçamento - Novo" />
+    <Head title="Tipo de item de orçamento - Novo" />
 
     <AuthenticatedLayout>
         <template #header>
             <div>
-                <h2 class="inline-block font-semibold text-xl text-gray-800 leading-tight"><Link class="underline" :href="route('tipoOrcamento.index')">Tipos de Orçamentos</Link> > Novo</h2>
+                <h2 class="inline-block font-semibold text-xl text-gray-800 leading-tight"><Link class="underline" :href="route('tipoOrcamento.index')">Tipos de item de Orçamentos</Link> > Novo</h2>
             </div>
         </template>
 
@@ -37,14 +37,14 @@
                     
                     <div v-if="$page.props.auth.user.userable_type === 'App\\Models\\Administrador'" class="p-6 text-gray-900">
                         
-                        <p>Preencha o formulario abaixo para adicionar um novo tipo de orçamento ao sistema.</p>
+                        <p>Preencha o formulario abaixo para adicionar um novo tipo de item de orçamento ao sistema.</p>
 
                         <formDefault @submit.prevent="submit" method="POST">
                             <template #content>
-                                <inputNew rotulo="Nome" placeholder="Nome Completo" name="name" type="text" v-model="form.name" required></inputNew>
+                                <inputNew rotulo="Nome *" placeholder="Nome Completo" name="name" type="text" v-model="form.name" required></inputNew>
                                 <InputError class="mt-2" :message="form.errors.name" />
                                 <br><br>
-                                <textAreaNew rotulo="Descrição" placeholder="Descrição" name="description" type="text" v-model="form.description" required></textAreaNew>
+                                <textAreaNew rotulo="Descrição *" placeholder="Descrição" name="description" type="text" v-model="form.description" required></textAreaNew>
                                 <InputError class="mt-2" :message="form.errors.description" />
                                 <br><br>
                             </template>
