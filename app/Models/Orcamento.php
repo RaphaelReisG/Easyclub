@@ -16,7 +16,7 @@ class Orcamento extends Model
         //'data_previsao',        // indica uma previsão de fim de prazo de cotação
         'data_encerramento',    // data de quando se obteve a resposta final 
         'orcamento_status',     // aprovado ou Recusado
-        'response_observation',
+        'response_observation', 
         'cliente_id',
         'administrador_id',
         //'tipo_orcamento_id'

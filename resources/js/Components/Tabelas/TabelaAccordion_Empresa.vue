@@ -35,7 +35,7 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody data-accordion="collapse" v-for="(obj, index) in  $page.props.empresas ">
+                        <tbody data-accordion="collapse" v-for="(obj, index) in  $page.props.empresas.data ">
                             <tr 
                                 v-bind:id="'accordion-collapse-heading-Administrador' + index"
                                 class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100" 

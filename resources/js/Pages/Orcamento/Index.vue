@@ -2,6 +2,7 @@
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
     import TabelaAccordion_Orcamento from '@/Components/Tabelas/TabelaAccordion_Orcamento.vue';
     import Botao_novo from '@/Components/Botoes/Botao_novo.vue';
+    import Paginacao from '@/Components/Paginacao.vue';
     //import Paginacao from '@/Components/Paginacao.vue';
     import { Head } from '@inertiajs/vue3';
 </script>
@@ -26,6 +27,8 @@
                     
                     <div class="p-6 text-gray-900">
                         Orçamentos cadastrados no sistema: 
+
+                        <Paginacao :paginacao="$page.props.orcamentos"/>
 
                         <TabelaAccordion_Orcamento/>
                     </div>

@@ -16,7 +16,8 @@ class TipoOrcamentoController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request): Response
-    {$tipo = TipoOrcamento::all();
+    {
+        $tipo = TipoOrcamento::paginate(10);
 
         return  $request->user()->hasVerifiedEmail()
                 ? Inertia::render('TipoOrcamento/Index' , [
@@ -49,13 +50,8 @@ class TipoOrcamentoController extends Controller
     {
         TipoOrcamento::create($request->all());
 
-        $tipo = TipoOrcamento::all();
+        return $this->index($request);
 
-        return Inertia::render('TipoOrcamento/Index' , [
-            'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
-            'status' => session('status'),
-            'tipoOrcamento' => $tipo
-        ]); 
     }
 
     /**
@@ -88,12 +84,8 @@ class TipoOrcamentoController extends Controller
     {
         $id->update($request->all());
         
-        $tipo = TipoOrcamento::all();
-        return Inertia::render('TipoOrcamento/Index' , [
-            'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
-            'status' => session('status'),
-            'tipoOrcamento' => $tipo
-        ]); 
+        return $this->index($request);
+
     }
 
     /**
@@ -103,11 +95,7 @@ class TipoOrcamentoController extends Controller
     {
         $id->delete();
 
-        $tipo = TipoOrcamento::all();
-        return Inertia::render('Tipo_Produto/Index' , [
-            'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
-            'status' => session('status'),
-            'tipo_Produtos' => $tipo
-        ]); 
+        return $this->index($request);
+
     }
 }

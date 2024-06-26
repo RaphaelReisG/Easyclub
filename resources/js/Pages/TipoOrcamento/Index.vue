@@ -1,6 +1,7 @@
 <script setup>
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
     import TabelaAccordion_TipoOrcamento from '@/Components/Tabelas/TabelaAccordion_TipoOrcamento.vue';
+    import Paginacao from '@/Components/Paginacao.vue';
     import Botao_novo from '@/Components/Botoes/Botao_novo.vue';
     import { Head } from '@inertiajs/vue3';
 </script>
@@ -22,6 +23,8 @@
                     
                     <div v-if="$page.props.auth.user.userable_type === 'App\\Models\\Administrador'" class="p-6 text-gray-900">
                         Tipos de orçamentos cadastrados no sistema: 
+                        
+                        <Paginacao :paginacao="$page.props.tipoOrcamento"/>
 
                         <TabelaAccordion_TipoOrcamento/>
                     </div>

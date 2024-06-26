@@ -40,39 +40,39 @@ class OrcamentoController extends Controller
     }*/
 
     public function index(Request $request): Response
-{
-    error_log("Index");
-    error_log($request->user());
+    {
+        error_log("Index");
+        error_log($request->user());
 
-    // Obtém o ID da empresa do usuário atual
-    $user = $request->user();
-    $empresaId = $user->userable->empresa_id;
-    error_log($empresaId);
+        // Obtém o ID da empresa do usuário atual
+        $user = $request->user();
+        $empresaId = $user->userable->empresa_id;
+        error_log($empresaId);
 
-    // Verifica se o usuário é do tipo cliente
-    $isCliente = $user->userable instanceof Cliente;
+        // Verifica se o usuário é do tipo cliente
+        $isCliente = $user->userable instanceof Cliente;
 
-    // Filtra os orçamentos de acordo com a empresa do cliente
-    if ($isCliente) {
-        $orcamentos = Orcamento::whereHas('cliente', function($query) use ($empresaId) {
-            $query->where('empresa_id', $empresaId);
-        })
-        ->with(['cliente', 'cliente.empresa', 'administrador', 'itemOrcamentos', 'itemOrcamentos.tipo_orcamento'])
-        ->get();
-    } else {
-        // Se não for cliente, busca todos os orçamentos
-        $orcamentos = Orcamento::with(['cliente', 'cliente.empresa', 'administrador', 'itemOrcamentos', 'itemOrcamentos.tipo_orcamento'])
-        ->get();
-    }
+        // Filtra os orçamentos de acordo com a empresa do cliente
+        if ($isCliente) {
+            $orcamentos = Orcamento::whereHas('cliente', function ($query) use ($empresaId) {
+                $query->where('empresa_id', $empresaId);
+            })
+                ->with(['cliente', 'cliente.empresa', 'administrador', 'itemOrcamentos', 'itemOrcamentos.tipo_orcamento'])
+                ->paginate(10);
+        } else {
+            // Se não for cliente, busca todos os orçamentos
+            $orcamentos = Orcamento::with(['cliente', 'cliente.empresa', 'administrador', 'itemOrcamentos', 'itemOrcamentos.tipo_orcamento'])
+                ->paginate(10);
+        }
 
-    return  $request->user()->hasVerifiedEmail()
+        return  $request->user()->hasVerifiedEmail()
             ? Inertia::render('Orcamento/Index', [
                 'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
                 'status' => session('status'),
                 'orcamentos' => $orcamentos
             ])
             : Inertia::render('Auth/VerifyEmail', ['status' => session('status')]);
-}
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -84,14 +84,13 @@ class OrcamentoController extends Controller
         //error_log($tipo);
 
         return  $request->user()->hasVerifiedEmail()
-                ? Inertia::render('Orcamento/Create' , [
-                    'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
-                    'status' => session('status'),
-                    
-                    'tipoOrcamento' => $tipo
-                ])
-                : Inertia::render('Auth/VerifyEmail', ['status' => session('status')])
-        ;
+            ? Inertia::render('Orcamento/Create', [
+                'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
+                'status' => session('status'),
+
+                'tipoOrcamento' => $tipo
+            ])
+            : Inertia::render('Auth/VerifyEmail', ['status' => session('status')]);
     }
 
     /**
@@ -111,8 +110,7 @@ class OrcamentoController extends Controller
         }
 
 
-       return $this->index($request);
-
+        return $this->index($request);
     }
 
     /**
@@ -134,15 +132,14 @@ class OrcamentoController extends Controller
         error_log($id->itemOrcamentos);
 
         return  $request->user()->hasVerifiedEmail()
-                ? Inertia::render('Orcamento/Edit' , [
-                    'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
-                    'status' => session('status'),
-                    'orcamento' => $id,
-                    'tipoOrcamento' => $TipoOrcamento,
-                    'itemOrcamentos' => $id->itemOrcamentos
-                ])
-                : Inertia::render('Auth/VerifyEmail', ['status' => session('status')])
-        ;
+            ? Inertia::render('Orcamento/Edit', [
+                'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
+                'status' => session('status'),
+                'orcamento' => $id,
+                'tipoOrcamento' => $TipoOrcamento,
+                'itemOrcamentos' => $id->itemOrcamentos
+            ])
+            : Inertia::render('Auth/VerifyEmail', ['status' => session('status')]);
     }
 
     /**
@@ -160,8 +157,7 @@ class OrcamentoController extends Controller
         }
 
 
-       return $this->index($request);
-
+        return $this->index($request);
     }
 
     /**
@@ -173,7 +169,6 @@ class OrcamentoController extends Controller
         $id->delete();
 
         return $this->index($request);
-
     }
 
     public function updateInicioAnalise(Request $request, Orcamento $id)
@@ -197,15 +192,14 @@ class OrcamentoController extends Controller
         error_log($id->itemOrcamentos);
 
         return  $request->user()->hasVerifiedEmail()
-                ? Inertia::render('Orcamento/Finalizar' , [
-                    'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
-                    'status' => session('status'),
-                    'orcamento' => $id,
-                    'tipoOrcamento' => $TipoOrcamento,
-                    'itemOrcamentos' => $id->itemOrcamentos
-                ])
-                : Inertia::render('Auth/VerifyEmail', ['status' => session('status')])
-        ;
+            ? Inertia::render('Orcamento/Finalizar', [
+                'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
+                'status' => session('status'),
+                'orcamento' => $id,
+                'tipoOrcamento' => $TipoOrcamento,
+                'itemOrcamentos' => $id->itemOrcamentos
+            ])
+            : Inertia::render('Auth/VerifyEmail', ['status' => session('status')]);
     }
 
     public function updateOrcamentoStatus(Request $request, Orcamento $id)
@@ -224,6 +218,4 @@ class OrcamentoController extends Controller
 
         return $this->index($request);
     }
-
-
 }

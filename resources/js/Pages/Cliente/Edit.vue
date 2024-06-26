@@ -10,7 +10,7 @@
     const cliente = usePage().props.cliente;
     
 
-    const form = useForm({
+    const form = useForm({ 
         name: cliente.name,
         email: cliente.user.email,
         empresa_id: cliente.empresa_id,
@@ -37,7 +37,8 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     
-                    <div v-if="$page.props.auth.user.userable_type === 'App\\Models\\Administrador'" class="p-6 text-gray-900">
+                    <div v-if="$page.props.auth.user.userable_type
+                     === 'App\\Models\\Administrador'" class="p-6 text-gray-900">
 
                         <p>Preencha o formulario abaixo para alterar os atributos de um cliente no sistema.</p>
 

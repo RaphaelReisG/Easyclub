@@ -20,7 +20,7 @@ class AdministradorController extends Controller
     public function index(Request $request): Response
     {
 
-        $administrador = Administrador::with(['user'])->get();
+        $administrador = Administrador::with(['user'])->paginate(10);
 
         return  $request->user()->hasVerifiedEmail()
                 ? Inertia::render('Administrador/Index' , [
@@ -54,16 +54,12 @@ class AdministradorController extends Controller
         $administrador = Administrador::create($request->only('name'));
         $user = $administrador->user()->create(['email' => $request->email, "password" =>Hash::make($request->password)]);
 
-        $administradores = Administrador::with(['user'])->get();
+        //$administradores = Administrador::with(['user'])->get();
 
         $user->sendEmailVerificationNotification();
 
 
-        return Inertia::render('Administrador/Index' , [
-            'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
-            'status' => session('status'),
-            'usuarios' => $administradores
-        ]); 
+        return $this->index($request);
     }
 
     /**
@@ -100,12 +96,7 @@ class AdministradorController extends Controller
         $id->update($request->only('name'));
         $id->user()->update($request->only('email'));
 
-        $administradores = Administrador::with(['user'])->get();
-        return Inertia::render('Administrador/Index' , [
-            'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
-            'status' => session('status'),
-            'usuarios' => $administradores
-        ]); 
+        return $this->index($request);
     }
 
     /**
@@ -120,12 +111,7 @@ class AdministradorController extends Controller
         $id->user()->delete();
         $id->delete();
 
-        $administradores = Administrador::with(['user'])->get();
-        return Inertia::render('Administrador/Index' , [
-            'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
-            'status' => session('status'),
-            'usuarios' => $administradores
-        ]); 
+        return $this->index($request);
 
     }
 }

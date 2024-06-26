@@ -35,7 +35,7 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody data-accordion="collapse" v-for="(obj, index) in  $page.props.tipoOrcamento ">
+                        <tbody data-accordion="collapse" v-for="(obj, index) in  $page.props.tipoOrcamento.data ">
                             <tr 
                                 v-bind:id="'accordion-collapse-heading-Administrador' + index"
                                 class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100" 

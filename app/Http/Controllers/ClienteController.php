@@ -23,13 +23,13 @@ class ClienteController extends Controller
     error_log($request->user()->userable_type);
 
     if ($request->user()->userable_type == "App\Models\Administrador") {
-        $clientes = Cliente::with(['user', 'empresa'])->get();
+        $clientes = Cliente::with(['user', 'empresa'])->paginate(10);
     } else {
         error_log("ID empresa: ");
         error_log($request->user()->userable->empresa_id);
         $clientes = Cliente::with(['user', 'empresa'])
             ->where("empresa_id", "=", $request->user()->userable->empresa_id)
-            ->get();
+            ->paginate(10);
     }
 
     return  $request->user()->hasVerifiedEmail()
@@ -71,16 +71,12 @@ class ClienteController extends Controller
         //$cliente = Cliente::create($request->only('name'));
         $user = $cliente->user()->create(['email' => $request->email, "password" =>Hash::make($request->password)]);
 
-        $clientes = Cliente::with(['user', 'empresa'])->get();
+        //$clientes = Cliente::with(['user', 'empresa'])->get();
 
         $user->sendEmailVerificationNotification();
 
 
-        return Inertia::render('Cliente/Index' , [
-            'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
-            'status' => session('status'),
-            'usuarios' => $clientes
-        ]); 
+        return $this->index($request);
     }
 
     /**
@@ -118,12 +114,7 @@ class ClienteController extends Controller
         $id->update($request->only('name', 'empresa_id'));
         $id->user()->update($request->only('email'));
 
-        $Clientes = Cliente::with(['user', 'empresa'])->get();
-        return Inertia::render('Cliente/Index' , [
-            'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
-            'status' => session('status'),
-            'usuarios' => $Clientes
-        ]); 
+        return $this->index($request);
     }
 
     /**
@@ -136,11 +127,6 @@ class ClienteController extends Controller
 
         
 
-        $clientes = Cliente::with(['user', 'empresa'])->get();
-        return Inertia::render('Cliente/Index' , [
-            'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
-            'status' => session('status'),
-            'usuarios' => $clientes
-        ]); 
+        return $this->index($request);
     }
 }

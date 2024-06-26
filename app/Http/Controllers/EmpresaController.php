@@ -17,7 +17,7 @@ class EmpresaController extends Controller
      */
     public function index(Request $request):Response
     {
-        $empresas = Empresa::all();
+        $empresas = Empresa::paginate(10);
 
         return  $request->user()->hasVerifiedEmail()
                 ? Inertia::render('Empresa/Index' , [
@@ -50,13 +50,7 @@ class EmpresaController extends Controller
     {
         Empresa::create($request->all());
 
-        $empresas = Empresa::all();
-
-        return Inertia::render('Empresa/Index' , [
-            'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
-            'status' => session('status'),
-            'empresas' => $empresas
-        ]); 
+        return $this->index($request);
     }
 
     /**
@@ -89,12 +83,7 @@ class EmpresaController extends Controller
     {
         $id->update($request->all());
         
-        $empresas = Empresa::all();
-        return Inertia::render('Empresa/Index' , [
-            'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
-            'status' => session('status'),
-            'empresas' => $empresas
-        ]); 
+        return $this->index($request);
     }
 
     /**
@@ -104,11 +93,6 @@ class EmpresaController extends Controller
     {
         $id->delete();
 
-        $empresas = Empresa::all();
-        return Inertia::render('Empresa/Index' , [
-            'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
-            'status' => session('status'),
-            'empresas' => $empresas
-        ]); 
+        return $this->index($request);
     }
 }

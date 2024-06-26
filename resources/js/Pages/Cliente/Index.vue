@@ -1,6 +1,7 @@
 <script setup>
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
     import TabelaAccordion_Cliente from '@/Components/Tabelas/TabelaAccordion_Cliente.vue';
+    import Paginacao from '@/Components/Paginacao.vue';
     import Botao_novo from '@/Components/Botoes/Botao_novo.vue';
     import { Head } from '@inertiajs/vue3';
 </script>
@@ -21,6 +22,7 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">    
                     <div class="p-6 text-gray-900">
                         Lista de usuarios: 
+                        <Paginacao :paginacao="$page.props.usuarios"/>
                         <TabelaAccordion_Cliente/>
                     </div>
                 </div>
