@@ -1,17 +1,21 @@
 <script setup>
 
 
-    import { onMounted } from 'vue'
-    import { initFlowbite } from 'flowbite'
+import { onMounted } from 'vue'
+import { initFlowbite } from 'flowbite'
 
-    import Botao_editar from '@/Components/Botoes/Botao_editar.vue';
-    import Botao_deletar from '@/Components/Botoes/Botao_deletar.vue';
+import Botao_editar from '@/Components/Botoes/Botao_editar.vue';
+import Botao_deletar from '@/Components/Botoes/Botao_deletar.vue';
 
-    onMounted(() => {
-        initFlowbite();
-    })
+import ordenacao from '@/Components/ordenacao.vue';
 
-   
+import { Link } from '@inertiajs/vue3';
+
+onMounted(() => {
+    initFlowbite();
+})
+
+
 </script>
 
 
@@ -25,10 +29,10 @@
                         <thead class="bg-gray-200 border-b">
                             <tr>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                    Nome
+                                    <ordenacao rotulo="Nome" ordemPor="name"></ordenacao>
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                    Criado em:
+                                    <ordenacao rotulo="Criado em" ordemPor="created_at"></ordenacao>
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                     Opções
@@ -36,25 +40,22 @@
                             </tr>
                         </thead>
                         <tbody data-accordion="collapse" v-for="(obj, index) in  $page.props.tipoOrcamento.data ">
-                            <tr 
-                                v-bind:id="'accordion-collapse-heading-Administrador' + index"
-                                class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100" 
-                                v-bind:data-accordion-target="'#accordion-collapse-body-Administrador' + index" 
-                                aria-expanded="false" 
-                                v-bind:aria-controls="'accordion-collapse-body-Administrador' + index"
-                            >
+                            <tr v-bind:id="'accordion-collapse-heading-Administrador' + index"
+                                class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
+                                v-bind:data-accordion-target="'#accordion-collapse-body-Administrador' + index"
+                                aria-expanded="false"
+                                v-bind:aria-controls="'accordion-collapse-body-Administrador' + index">
                                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ obj.name }}</td>
                                 <td>{{ new Date(obj.created_at).toLocaleString() }}</td>
                                 <td>
-                                    <Botao_editar :href="route('tipoOrcamento.edit' , {id: obj.id})"></Botao_editar>
+                                    <Botao_editar :href="route('tipoOrcamento.edit', { id: obj.id })"></Botao_editar>
                                     <Botao_deletar destino="tipoOrcamento.destroy" :deleteId="obj.id"></Botao_deletar>
                                 </td>
                             </tr>
-                            <tr class="hidden bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"  
-                                v-bind:id="'accordion-collapse-body-Administrador' + index" 
-                                v-bind:aria-labelledby="'accordion-collapse-heading-Administrador' + index"
-                            >
-                                <td colspan="3" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" > 
+                            <tr class="hidden bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
+                                v-bind:id="'accordion-collapse-body-Administrador' + index"
+                                v-bind:aria-labelledby="'accordion-collapse-heading-Administrador' + index">
+                                <td colspan="3" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                     Descrição: {{ obj.description }}
                                 </td>
                             </tr>
@@ -64,12 +65,5 @@
             </div>
         </div>
     </div>
-
-
-
-    
-
-
-
 </template>
 

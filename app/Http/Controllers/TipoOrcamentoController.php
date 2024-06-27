@@ -17,16 +17,22 @@ class TipoOrcamentoController extends Controller
      */
     public function index(Request $request): Response
     {
-        $tipo = TipoOrcamento::paginate(10);
+        $orderBy = $request->input('order_by', 'name'); // Padrão para 'nome' se não for especificado
+        $direction = $request->input('direction', 'asc'); // Padrão para 'asc' se não for especificado
+
+        $tipo = TipoOrcamento::orderBy($orderBy, $direction)->paginate(10);
+
+
 
         return  $request->user()->hasVerifiedEmail()
-                ? Inertia::render('TipoOrcamento/Index' , [
-                    'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
-                    'status' => session('status'),
-                    'tipoOrcamento' => $tipo
-                ])
-                : Inertia::render('Auth/VerifyEmail', ['status' => session('status')])
-        ;
+            ? Inertia::render('TipoOrcamento/Index', [
+                'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
+                'status' => session('status'),
+                'tipoOrcamento' => $tipo,
+                'order_by' => $orderBy,
+                'direction' => $direction
+            ])
+            : Inertia::render('Auth/VerifyEmail', ['status' => session('status')]);
     }
 
     /**
@@ -35,12 +41,11 @@ class TipoOrcamentoController extends Controller
     public function create(Request $request)
     {
         return  $request->user()->hasVerifiedEmail()
-                ? Inertia::render('TipoOrcamento/Create' , [
-                    'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
-                    'status' => session('status')
-                ])
-                : Inertia::render('Auth/VerifyEmail', ['status' => session('status')])
-        ;
+            ? Inertia::render('TipoOrcamento/Create', [
+                'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
+                'status' => session('status')
+            ])
+            : Inertia::render('Auth/VerifyEmail', ['status' => session('status')]);
     }
 
     /**
@@ -51,7 +56,6 @@ class TipoOrcamentoController extends Controller
         TipoOrcamento::create($request->all());
 
         return $this->index($request);
-
     }
 
     /**
@@ -68,13 +72,12 @@ class TipoOrcamentoController extends Controller
     public function edit(Request $request, TipoOrcamento $id)
     {
         return  $request->user()->hasVerifiedEmail()
-                ? Inertia::render('TipoOrcamento/Edit' , [
-                    'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
-                    'status' => session('status'),
-                    'tipoOrcamento' => $id,
-                ])
-                : Inertia::render('Auth/VerifyEmail', ['status' => session('status')])
-        ;
+            ? Inertia::render('TipoOrcamento/Edit', [
+                'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
+                'status' => session('status'),
+                'tipoOrcamento' => $id,
+            ])
+            : Inertia::render('Auth/VerifyEmail', ['status' => session('status')]);
     }
 
     /**
@@ -83,9 +86,8 @@ class TipoOrcamentoController extends Controller
     public function update(TipoOrcamentoRequest $request, TipoOrcamento $id)
     {
         $id->update($request->all());
-        
-        return $this->index($request);
 
+        return $this->index($request);
     }
 
     /**
@@ -96,6 +98,5 @@ class TipoOrcamentoController extends Controller
         $id->delete();
 
         return $this->index($request);
-
     }
 }
