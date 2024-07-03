@@ -17,8 +17,8 @@ class TipoOrcamentoController extends Controller
      */
     public function index(Request $request): Response
     {
-        $orderBy = $request->input('order_by', 'name'); // Padrão para 'nome' se não for especificado
-        $direction = $request->input('direction', 'asc'); // Padrão para 'asc' se não for especificado
+        $orderBy = $request->input('order_by', 'name'); 
+        $direction = $request->input('direction', 'asc');
 
         $tipo = TipoOrcamento::orderBy($orderBy, $direction)->paginate(10);
 

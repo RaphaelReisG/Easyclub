@@ -18,28 +18,36 @@ class ClienteController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request): Response
-{
-    error_log("Tipo: "); 
-    error_log($request->user()->userable_type);
+    {
 
-    if ($request->user()->userable_type == "App\Models\Administrador") {
-        $clientes = Cliente::with(['user', 'empresa'])->paginate(10);
-    } else {
-        error_log("ID empresa: ");
-        error_log($request->user()->userable->empresa_id);
-        $clientes = Cliente::with(['user', 'empresa'])
-            ->where("empresa_id", "=", $request->user()->userable->empresa_id)
-            ->paginate(10);
-    }
+        $orderBy = $request->input('order_by', 'clientes.name'); 
+        $direction = $request->input('direction', 'asc');
 
-    return  $request->user()->hasVerifiedEmail()
+        error_log("Tipo: ");
+        error_log($request->user()->userable_type);
+
+        if ($request->user()->userable_type == "App\Models\Administrador") {
+            $clientes = Cliente::with(['user', 'empresa'])
+            ->join('empresas', 'clientes.empresa_id', '=', 'empresas.id')
+            ->orderBy($orderBy, $direction)->paginate(10);
+        } else {
+            error_log("ID empresa: ");
+            error_log($request->user()->userable->empresa_id);
+            $clientes = Cliente::with(['user', 'empresa'])
+                ->where("empresa_id", "=", $request->user()->userable->empresa_id)
+                ->orderBy($orderBy, $direction)->paginate(10);
+        }
+
+        return  $request->user()->hasVerifiedEmail()
             ? Inertia::render('Cliente/Index', [
                 'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
                 'status' => session('status'),
-                'usuarios' => $clientes
+                'usuarios' => $clientes,
+                'order_by' => $orderBy,
+                'direction' => $direction
             ])
             : Inertia::render('Auth/VerifyEmail', ['status' => session('status')]);
-}
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -49,13 +57,12 @@ class ClienteController extends Controller
         $empresas = Empresa::all();
 
         return  $request->user()->hasVerifiedEmail()
-                ? Inertia::render('Cliente/Create' , [
-                    'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
-                    'status' => session('status'),
-                    'empresas' => $empresas
-                ])
-                : Inertia::render('Auth/VerifyEmail', ['status' => session('status')])
-        ;
+            ? Inertia::render('Cliente/Create', [
+                'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
+                'status' => session('status'),
+                'empresas' => $empresas
+            ])
+            : Inertia::render('Auth/VerifyEmail', ['status' => session('status')]);
     }
 
     /**
@@ -69,7 +76,7 @@ class ClienteController extends Controller
         $cliente = Empresa::findOrfail($request->empresa_id)->clientes()->create($request->all());
 
         //$cliente = Cliente::create($request->only('name'));
-        $user = $cliente->user()->create(['email' => $request->email, "password" =>Hash::make($request->password)]);
+        $user = $cliente->user()->create(['email' => $request->email, "password" => Hash::make($request->password)]);
 
         //$clientes = Cliente::with(['user', 'empresa'])->get();
 
@@ -96,14 +103,13 @@ class ClienteController extends Controller
         $id->user;
 
         return  $request->user()->hasVerifiedEmail()
-                ? Inertia::render('Cliente/Edit' , [
-                    'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
-                    'status' => session('status'),
-                    'cliente' => $id,
-                    'empresas' => $empresas
-                ])
-                : Inertia::render('Auth/VerifyEmail', ['status' => session('status')])
-        ;
+            ? Inertia::render('Cliente/Edit', [
+                'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
+                'status' => session('status'),
+                'cliente' => $id,
+                'empresas' => $empresas
+            ])
+            : Inertia::render('Auth/VerifyEmail', ['status' => session('status')]);
     }
 
     /**
@@ -125,7 +131,7 @@ class ClienteController extends Controller
         $id->user()->delete();
         $id->delete();
 
-        
+
 
         return $this->index($request);
     }

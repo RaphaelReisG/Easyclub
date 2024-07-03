@@ -7,6 +7,8 @@
     import Botao_editar from '@/Components/Botoes/Botao_editar.vue';
     import Botao_deletar from '@/Components/Botoes/Botao_deletar.vue';
 
+    import ordenacao from '@/Components/ordenacao.vue';
+
     onMounted(() => {
         initFlowbite();
     })
@@ -27,13 +29,13 @@
                             <tr>
 
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                    Nome
+                                    <ordenacao rotulo="Nome" ordemPor="clientes.name" rota="cliente.index"></ordenacao>
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                     Email
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                    Empresa
+                                    <ordenacao rotulo="Empresa" ordemPor="empresas.name" rota="cliente.index"></ordenacao>
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                     Opções

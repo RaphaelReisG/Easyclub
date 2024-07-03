@@ -20,13 +20,20 @@ class AdministradorController extends Controller
     public function index(Request $request): Response
     {
 
-        $administrador = Administrador::with(['user'])->paginate(10);
+        $orderBy = $request->input('order_by', 'name'); 
+        $direction = $request->input('direction', 'asc');
+
+        $administrador = Administrador::with(['user'])
+            ->orderBy($orderBy, $direction)
+            ->paginate(10);
 
         return  $request->user()->hasVerifiedEmail()
                 ? Inertia::render('Administrador/Index' , [
                     'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
                     'status' => session('status'),
-                    'usuarios' => $administrador
+                    'usuarios' => $administrador,
+                    'order_by' => $orderBy,
+                    'direction' => $direction
                 ])
                 : Inertia::render('Auth/VerifyEmail', ['status' => session('status')])
         ;

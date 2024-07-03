@@ -10,7 +10,10 @@ class Administrador extends Usuario_sistema
 {
     use HasFactory;
 
-    public function orcamentos(){
+    public function orcamentos()
+    {
         return $this->hasMany(Orcamento::class);
     }
+
+
 }

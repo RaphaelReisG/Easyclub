@@ -17,13 +17,19 @@ class EmpresaController extends Controller
      */
     public function index(Request $request):Response
     {
-        $empresas = Empresa::paginate(10);
+
+        $orderBy = $request->input('order_by', 'name'); 
+        $direction = $request->input('direction', 'asc');
+
+        $empresas = Empresa::orderBy($orderBy, $direction)->paginate(10);
 
         return  $request->user()->hasVerifiedEmail()
                 ? Inertia::render('Empresa/Index' , [
                     'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
                     'status' => session('status'),
-                    'empresas' => $empresas
+                    'empresas' => $empresas,
+                    'order_by' => $orderBy,
+                    'direction' => $direction
                 ])
                 : Inertia::render('Auth/VerifyEmail', ['status' => session('status')])
         ;

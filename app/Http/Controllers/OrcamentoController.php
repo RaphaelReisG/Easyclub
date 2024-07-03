@@ -41,6 +41,10 @@ class OrcamentoController extends Controller
 
     public function index(Request $request): Response
     {
+
+        $orderBy = $request->input('order_by', 'created_at'); 
+        $direction = $request->input('direction', 'desc');
+
         error_log("Index");
         error_log($request->user());
 
@@ -58,18 +62,22 @@ class OrcamentoController extends Controller
                 $query->where('empresa_id', $empresaId);
             })
                 ->with(['cliente', 'cliente.empresa', 'administrador', 'itemOrcamentos', 'itemOrcamentos.tipo_orcamento'])
-                ->paginate(10);
+                ->orderBy($orderBy, $direction)->paginate(10);
         } else {
             // Se não for cliente, busca todos os orçamentos
             $orcamentos = Orcamento::with(['cliente', 'cliente.empresa', 'administrador', 'itemOrcamentos', 'itemOrcamentos.tipo_orcamento'])
-                ->paginate(10);
+            //->join('clientes', 'orcamentos.cliente_id', '=', 'clientes.id')
+            //->join('empresas', 'clientes.empresa_id', '=', 'empresas.id')
+            ->orderBy($orderBy, $direction)->paginate(10);
         }
 
         return  $request->user()->hasVerifiedEmail()
             ? Inertia::render('Orcamento/Index', [
                 'mustVerifyEmail' => $request->user()->load('userable') instanceof MustVerifyEmail,
                 'status' => session('status'),
-                'orcamentos' => $orcamentos
+                'orcamentos' => $orcamentos,
+                'order_by' => $orderBy,
+                'direction' => $direction
             ])
             : Inertia::render('Auth/VerifyEmail', ['status' => session('status')]);
     }

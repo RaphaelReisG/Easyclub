@@ -14,6 +14,10 @@ const props = defineProps({
         type: String,
         required: true,
     },
+    rota: {
+        type: String,
+        required: true,
+    },
 });
 
 const objeto = props.paginacao;
@@ -21,7 +25,7 @@ const objeto = props.paginacao;
 
 <template>
     <Link v-if="$page.props.order_by == ordemPor && $page.props.direction == 'asc'"
-        :href="route('tipoOrcamento.index', { order_by: ordemPor, direction: 'desc' })"
+        :href="route(rota, { order_by: ordemPor, direction: 'desc' })"
         class="inline-flex items-center space-x-1">
     {{ rotulo }}
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-alpha-down"
@@ -33,7 +37,7 @@ const objeto = props.paginacao;
     </svg>
     </Link>
     <Link v-else-if="$page.props.order_by == ordemPor && $page.props.direction == 'desc'"
-        :href="route('tipoOrcamento.index', { order_by: ordemPor, direction: 'asc' })"
+        :href="route(rota, { order_by: ordemPor, direction: 'asc' })"
         class="inline-flex items-center space-x-1">
         {{ rotulo }}
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-alpha-up-alt"
@@ -45,7 +49,7 @@ const objeto = props.paginacao;
             d="M4.5 13.5a.5.5 0 0 1-1 0V3.707L2.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.5.5 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L4.5 3.707z" />
     </svg>
     </Link>
-    <Link v-else :href="route('tipoOrcamento.index', { order_by: ordemPor, direction: 'asc' })">
+    <Link v-else :href="route(rota, { order_by: ordemPor, direction: 'asc' })">
         {{ rotulo }}
     </Link>
 </template>

@@ -8,6 +8,8 @@ import Botao_especial_inicioAnalise from '@/Components/Botoes/Botao_especial_ini
 import Botao_editar from '@/Components/Botoes/Botao_editar.vue';
 import Botao_deletar from '@/Components/Botoes/Botao_deletar.vue';
 
+import ordenacao from '@/Components/ordenacao.vue';
+
 onMounted(() => {
     initFlowbite();
 })
@@ -32,19 +34,19 @@ function calculaSla(dataInicio, sla) {
                         <thead class="bg-gray-200 border-b">
                             <tr>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                    Data - Solicitação
+                                    <ordenacao rotulo="Data - Solicitação" ordemPor="created_at" rota="orcamento.index"></ordenacao>
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                    Nome
+                                    <ordenacao rotulo="Nome" ordemPor="name" rota="orcamento.index"></ordenacao>
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                    Inicio de Analise
+                                    <ordenacao rotulo="Inicio de Analise" ordemPor="data_inicio_analise" rota="orcamento.index"></ordenacao>
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                     Previsão
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                    Status
+                                    <ordenacao rotulo="Status" ordemPor="orcamento_status" rota="orcamento.index"></ordenacao>
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left" v-if="$page.props.auth.user.userable_type === 'App\\Models\\Administrador'">
                                     Empresa
